@@ -1,7 +1,9 @@
 
 ubuntu:
 
-1. install java jdk8 on ubuntu.
+1.###########################
+
+install java jdk8 on ubuntu.
 
 https://www.liberiangeek.net/2012/09/install-oracle-java-8-jdk-jre-in-ubuntu-12-04/
 
@@ -16,8 +18,31 @@ sudo apt-get update && sudo apt-get install oracle-java8-installer
 To verify if Java is installed, run the commands below.
  
 java ¨Cversion
+
+2. #####################
+
+config the ssh.
+  
+on bakcup  pc, terminal:
  
-########
+  ssh-keygen
+
+  cd ~/.ssh
+
+  scp id_rsa.pub root@192.168.0.100:/root/.ssh/id_rsa.pub.1  (which 0.100 is the target server)
+ 
+
+ 
+  on target server :
+ 
+  cat id_rsa.pub.1 >> authorized_keys
+ 
+
+
+ now on the backup pc,  ssh root@192.168.0.100 can login with passwordless.
+
+
+ 3. ###################
 sudo apt-get install samba
 
 smbpasswd -a it  (it is curren login user)

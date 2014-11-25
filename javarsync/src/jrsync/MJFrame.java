@@ -22,6 +22,8 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListModel;
+import javax.swing.plaf.OptionPaneUI;
+import sun.security.krb5.Confounder;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -634,12 +636,19 @@ public class MJFrame extends javax.swing.JFrame {
           }
           else{
               
+             int re =  JOptionPane.showConfirmDialog(rootPane, "Select the row to restore", "restore", JOptionPane.YES_NO_OPTION);
+              
+             if(re ==0){
+                 
+             }else if(re ==1){
+                 throw new Exception("no ");
+             }
+              
                int row = jTable1.getSelectedRow();
                Host nowhost = mytablemodel.getSelectHost(row);
              
             // int selecti = jTable1.getSelectedRow();
             // Host nowhost = mytablemodel.getSelectHost(selecti);
-             
              //Host nowhost = lm.get(jList1.getSelectedIndex());          
             //ArrayList<String> alist1 = nowhost.getRcmd();             
             

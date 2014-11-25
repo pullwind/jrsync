@@ -1,10 +1,13 @@
 jrsync
 ======
+gui rsync ,
+sample call rsync command .
+
 
 you can download the jrsync-jar to you pc, 
 
 1. need install the java jdk7 or later.
-2. need config the ssh.
+2. need config the ssh. (or enter password when rsync)
   on bakcup  pc, terminal:
   ssh-keygen
   cd ~/.ssh

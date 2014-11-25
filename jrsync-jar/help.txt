@@ -1,0 +1,38 @@
+
+ubuntu:
+
+1. install java jdk8 on ubuntu.
+
+https://www.liberiangeek.net/2012/09/install-oracle-java-8-jdk-jre-in-ubuntu-12-04/
+
+To get started, press Ctrl ¨C Alt ¨C T on  your keyboard to open the terminal. When it opens, run the commands below to add the required PPA.
+
+sudo add-apt-repository ppa:webupd8team/java
+
+inally, run the commands below to update your system and install Java.
+
+sudo apt-get update && sudo apt-get install oracle-java8-installer
+
+To verify if Java is installed, run the commands below.
+ 
+java ¨Cversion
+ 
+########
+sudo apt-get install samba
+
+smbpasswd -a it  (it is curren login user)
+
+sudo vi /etc/samba/smb.conf
+
+
+##########################################
+setup vnc on ubuntu.
+
+sudo apt-get install tightvncserver
+
+vncserver    , enter password
+
+now , on windows,  use vnc client to connect to ubuntu .
+
+#########################################
+

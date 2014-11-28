@@ -8,6 +8,7 @@ package jrsync;
 
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -15,7 +16,7 @@ import javax.swing.DefaultListModel;
  */
 public class AddHostWork extends javax.swing.JFrame {
     
-    private HostWork hostwork = new HostWork();
+    private HostWork hostwork; // = new HostWork();
     String rsyncCmdString;
     //private ArrayList<HostWork> hostworks;
     private DefaultListModel<HostWork> dlmhw;
@@ -23,10 +24,11 @@ public class AddHostWork extends javax.swing.JFrame {
     /**
      * Creates new form AddHost
      */
-    public AddHostWork(DefaultListModel<HostWork> dlmhw) {
+    public AddHostWork(DefaultListModel<HostWork> dlmhw, HostWork hostwork) {
         
         initComponents();       
         this.dlmhw = dlmhw;       
+        this.hostwork = hostwork;
         rsyncCmdString = jTrsyncCmd.getText();
         
     }
@@ -100,7 +102,7 @@ public class AddHostWork extends javax.swing.JFrame {
         });
 
         jLabel9.setForeground(java.awt.Color.blue);
-        jLabel9.setText("远程目录和本地目录，需要以/结束，比如/home/ ，表示备份子目录，便于还原作业。");
+        jLabel9.setText("remote directory and local directory，need to end up with /,such as /home/,it means back-up subdirtectory,in order to restore job.");
         jLabel9.setFocusable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -236,7 +238,7 @@ public class AddHostWork extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jTrsyncCmd, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jTBackupCmd, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+                    .addComponent(jTBackupCmd)
                     .addComponent(jTrecoverCmd))
                 .addGap(18, 18, 18))
         );
@@ -266,7 +268,7 @@ public class AddHostWork extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("宋体", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel8.setText("添加完毕之后，请在主窗口点击保存按钮以保存修改。");
+        jLabel8.setText("after add,click the Save button of the main window to save the changes.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

@@ -7,16 +7,22 @@
 package jrsync;
 
 import java.io.Serializable;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JTextArea;
 
 /**
  *
  * @author Administrator
  */
-public class HostWork implements Serializable{
+public class HostWork  extends TimerTask implements Serializable{
        
         private Host host = new Host();
+        private JTextArea cmdlog;
 
+    public HostWork(JTextArea cmdlog) {
+        this.cmdlog = cmdlog;
+    }
    
         
         
@@ -38,14 +44,14 @@ public class HostWork implements Serializable{
         this.host = host;
     }
     
-    public void hostRsync(JTextArea jtextarea){
-        RsyncSwingWorker rsw = new RsyncSwingWorker(jtextarea, host.getbackupCmdList(),host);
+    public void hostRsync(){
+        RsyncSwingWorker rsw = new RsyncSwingWorker(this.cmdlog, host.getbackupCmdList(),host);
         rsw.execute();
                 
     }
 
-    public void hostRestore(JTextArea jtextarea){
-        RsyncSwingWorker restore = new RsyncSwingWorker(jtextarea, host.getrecoverCmdList(), host);
+    public void hostRestore(){
+        RsyncSwingWorker restore = new RsyncSwingWorker(this.cmdlog, host.getrecoverCmdList(), host);
         restore.execute();
     }
 
@@ -55,6 +61,22 @@ public class HostWork implements Serializable{
         return this.getHost().getbackupCmdString();
     }
     
+    public void hostRsyncTimer(){
+        Timer timer = new Timer();
+        //MyTimerTask mytimerTask = new MyTimerTask();
+        timer.schedule(this, 0, 1*60*1000);
+        
+        
+    }
+
+    @Override
+    public void run() {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        RsyncSwingWorker rsw = new RsyncSwingWorker(this.cmdlog, host.getbackupCmdList(),host);
+        rsw.execute();
+        
+        //可能会有多个process, 而只保存了一个， 后期改用arraylist保存process.
+    }
     
     
     

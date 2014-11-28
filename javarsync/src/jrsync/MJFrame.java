@@ -84,6 +84,7 @@ public class MJFrame extends javax.swing.JFrame {
         jListHost = new javax.swing.JList();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextAreaHost = new javax.swing.JTextArea();
+        jButton3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         rsyncLog = new javax.swing.JTextArea();
@@ -163,6 +164,13 @@ public class MJFrame extends javax.swing.JFrame {
         jTextAreaHost.setRows(5);
         jScrollPane2.setViewportView(jTextAreaHost);
 
+        jButton3.setText("jButton3");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -179,7 +187,9 @@ public class MJFrame extends javax.swing.JFrame {
                 .addComponent(Load)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Save)
-                .addGap(0, 216, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton3)
+                .addGap(0, 99, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -203,7 +213,8 @@ public class MJFrame extends javax.swing.JFrame {
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(Load)
-                    .addComponent(Save))
+                    .addComponent(Save)
+                    .addComponent(jButton3))
                 .addContainerGap())
         );
 
@@ -358,7 +369,7 @@ public class MJFrame extends javax.swing.JFrame {
                
             cmdLog.append(nowhostwork.toString() + "\n");
             cmdLog.append("开始执行备份线程......\n");
-           nowhostwork.hostRsync(cmdLog);
+           nowhostwork.hostRsync();
             
           }
         
@@ -401,8 +412,8 @@ public class MJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_b_stopActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       
-        AddHostWork addhost = new AddHostWork(this.dlmhostworks);
+        HostWork hostwork = new HostWork(cmdLog);
+        AddHostWork addhost = new AddHostWork(this.dlmhostworks, hostwork);
         addhost.setVisible(rootPaneCheckingEnabled);
        
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -511,7 +522,7 @@ public class MJFrame extends javax.swing.JFrame {
             
             cmdLog.append(nowhostwork.getHost().getrecoverCmdString() + "\n");
             cmdLog.append("开始执行 线程......\n");
-            nowhostwork.hostRestore(cmdLog);
+            nowhostwork.hostRestore();
             
           }
       }catch(Exception e) {
@@ -541,6 +552,41 @@ public class MJFrame extends javax.swing.JFrame {
         jTextAreaHost.append("\n restore rsync cmd: " + host.getrecoverCmdString());
         
     }//GEN-LAST:event_jListHostMouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        Calendar cStart = Calendar.getInstance();    
+       //Calendar cEnd;               
+        cmdLog.append("开始时间：" + cStart.getTime().toString() + "\n");
+        cmdLog.validate();
+        
+      try {  
+          // host
+         // if(//jList1.getSelectedIndex() == -1){
+         if( false){
+              cmdLog.append("请选择列表中的一行以进行备份 \n");
+             
+          }
+          else{
+              
+               int row = jListHost.getSelectedIndex(); //.getSelectedRow();             
+               HostWork nowhostwork = dlmhostworks.get(row); // .get(row); // .getSelectHost(row);
+               
+            cmdLog.append(nowhostwork.toString() + "\n");
+            cmdLog.append("开始执行备份线程......\n");
+           //nowhostwork.hostRsync();
+            nowhostwork.hostRsyncTimer();
+            
+          }
+        
+      
+        } catch (Exception e) {
+            rsyncLog.append(e.toString());
+        }
+                    
+                    
+          // run thread
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -632,6 +678,7 @@ public class MJFrame extends javax.swing.JFrame {
     private javax.swing.JTextArea cmdLog;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JList jListHost;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;

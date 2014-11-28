@@ -37,7 +37,9 @@ import sun.security.krb5.Confounder;
  */
 public class MJFrame extends javax.swing.JFrame {
     
-    private ArrayList<HostWork> hostworks;
+    //private ArrayList<HostWork> hostworks = new ArrayList<HostWork>();
+    DefaultListModel<HostWork> dlmhostworks = new DefaultListModel<HostWork>();
+   
     
     /**
      * Creates new form MJFrame
@@ -52,6 +54,7 @@ public class MJFrame extends javax.swing.JFrame {
            cmdLog.append("can't load host.txt");
         }
         
+        jListHost.setModel(dlmhostworks); //set model
         //
         MyOutputStream myout = new MyOutputStream(cmdLog);
             PrintStream ps;
@@ -133,11 +136,6 @@ public class MJFrame extends javax.swing.JFrame {
         Load.setText("load");
         Load.setToolTipText("load from file \"host.txt\"");
         Load.setEnabled(false);
-        Load.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LoadActionPerformed(evt);
-            }
-        });
 
         Save.setText("save");
         Save.setToolTipText("save to file \"host.txt\"");
@@ -341,11 +339,11 @@ public class MJFrame extends javax.swing.JFrame {
           else{
               
                int row = jListHost.getSelectedIndex(); //.getSelectedRow();             
-               HostWork nowhostwork = hostworks.get(row); // .getSelectHost(row);
+               HostWork nowhostwork = dlmhostworks.get(row); // .get(row); // .getSelectHost(row);
                
             cmdLog.append(nowhostwork.toString() + "\n");
             cmdLog.append("开始执行备份线程......\n");
-           nowhostwork.hostRsync();
+           nowhostwork.hostRsync(cmdLog);
             
           }
         
@@ -389,7 +387,7 @@ public class MJFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        
-        AddHostWork addhost = new AddHostWork(this.hostworks);
+        AddHostWork addhost = new AddHostWork(this.dlmhostworks);
         addhost.setVisible(rootPaneCheckingEnabled);
        
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -400,7 +398,7 @@ public class MJFrame extends javax.swing.JFrame {
             int si = jListHost.getSelectedIndex(); //.getSelectedRow(); //.getSelectedIndex();
             //lm.remove(si);            
             //mytablemodel.deleteHost(si);
-            this.hostworks.remove(si);
+            this.dlmhostworks.remove(si);
             //mytablemodel.fireTableDataChanged();
             //SaveFile();
         }catch (ArrayIndexOutOfBoundsException e) {
@@ -418,38 +416,22 @@ public class MJFrame extends javax.swing.JFrame {
         rfile.openFile();
        // lm =  (DefaultListModel<Host>) rfile.readFile();
       //  mytablemodel = (myTableModel) rfile.readFile();
-        ArrayList<HostWork> arraylisthw = (ArrayList<HostWork>)rfile.readFile();
-        this.hostworks.addAll(arraylisthw);
+        //ArrayList<HostWork> arraylisthw = (ArrayList<HostWork>)rfile.readFile();
+        DefaultListModel<HostWork> dlm = (DefaultListModel<HostWork>)rfile.readFile();
+        this.dlmhostworks = dlm;
         //hosts.addAll(ah);
         //hosts = (ArrayList<Host>)rfile.readFile();
         //mytablemodel.fireTableDataChanged();
          
         rfile.closeFile();
     }
-    
-    private void LoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadActionPerformed
-        // TODO add your handling code here:
-        RFile rfile = new RFile("hostwork.txt");
-        rfile.openFile();
-       // lm =  (DefaultListModel<Host>) rfile.readFile();
-      //  mytablemodel = (myTableModel) rfile.readFile();
-        ArrayList<HostWork> arraylisthw = (ArrayList<HostWork>)rfile.readFile();
-        this.hostworks.addAll(arraylisthw);
-        //hosts.addAll(ah);
-        //hosts = (ArrayList<Host>)rfile.readFile();
-        //mytablemodel.fireTableDataChanged();
-         
-        rfile.closeFile();
-        
-        
-    }//GEN-LAST:event_LoadActionPerformed
-   
+       
     
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
         // TODO add your handling code here:
         WFile wfile = new WFile("hostwork.txt");
         wfile.openFile();
-        wfile.WtoFile(this.hostworks);
+        wfile.WtoFile(this.dlmhostworks);
         wfile.closeFile();
         
     }//GEN-LAST:event_SaveActionPerformed
@@ -505,15 +487,16 @@ public class MJFrame extends javax.swing.JFrame {
              if(re ==0){
                  
              }else if(re ==1){
-                 throw new Exception("no ");
+                 throw new Exception("no");
              }
               
                int row = jListHost.getSelectedIndex();
-               HostWork nowhostwork = this.hostworks.get(row); //getSelectHost(row);
+               HostWork nowhostwork = this.dlmhostworks.get(row); //getSelectHost(row);
                          
             
             cmdLog.append(nowhostwork.getHost().getrecoverCmdString() + "\n");
             cmdLog.append("开始执行 线程......\n");
+            nowhostwork.hostRestore(cmdLog);
             
           }
       }catch(Exception e) {
@@ -525,7 +508,7 @@ public class MJFrame extends javax.swing.JFrame {
     private void StoprecoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StoprecoverActionPerformed
         // TODO add your handling code here:
         //mytablemodel.getSelectHost(jTable1.getSelectedRow()).getHostProcess().destroyForcibly();
-        Process p = this.hostworks.get( jListHost.getSelectedIndex()).getHost().getProcess();
+        Process p = this.dlmhostworks.get( jListHost.getSelectedIndex()).getHost().getProcess();
         p.destroyForcibly();
         cmdLog.append("停止所调用的rsync进程" +  p.toString()); // mytablemodel.getSelectHost(jTable1.getSelectedRow()).getHostProcess().toString() + "\n");
     }//GEN-LAST:event_StoprecoverActionPerformed

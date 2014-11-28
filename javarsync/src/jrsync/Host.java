@@ -14,7 +14,7 @@ import java.util.ArrayList;
  *
  * @author Administrator
  */
-public class Host implements  Serializable{
+public class Host implements Serializable{
     private  ArrayList<String> backupCmdList = new ArrayList<String>();
     private ArrayList<String> recoverCmdList = new ArrayList<String>();
     
@@ -30,7 +30,7 @@ public class Host implements  Serializable{
     private String recoverCmdString;
    
     
-        private Process process;
+   private transient Process process;
 
     /**
      * Get the value of process

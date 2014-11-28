@@ -35,8 +35,8 @@ public class RsyncSwingWorker extends SwingWorker<Object, Object>{
     
     
     
-    public RsyncSwingWorker(JTextArea showtxt, ArrayList<String> cmdlist, Host host ) {
-        cmdlog = showtxt;       
+    public RsyncSwingWorker(JTextArea cmdlog, ArrayList<String> cmdlist, Host host ) {
+        this.cmdlog = cmdlog;       
         this.cmdlist = cmdlist;
         this.host = host;
         

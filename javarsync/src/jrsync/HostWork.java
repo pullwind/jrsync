@@ -6,17 +6,20 @@
 
 package jrsync;
 
+import java.io.Serializable;
 import javax.swing.JTextArea;
 
 /**
  *
  * @author Administrator
  */
-public class HostWork {
-        private JTextArea jtextarea;
-        private Host host;
-        //private 
+public class HostWork implements Serializable{
+       
+        private Host host = new Host();
 
+   
+        
+        
     /**
      * Get the value of host
      *
@@ -35,15 +38,23 @@ public class HostWork {
         this.host = host;
     }
     
-    public void hostRsync(){
+    public void hostRsync(JTextArea jtextarea){
         RsyncSwingWorker rsw = new RsyncSwingWorker(jtextarea, host.getbackupCmdList(),host);
         rsw.execute();
                 
     }
 
-    public void hostRestore(){
-        
+    public void hostRestore(JTextArea jtextarea){
+        RsyncSwingWorker restore = new RsyncSwingWorker(jtextarea, host.getrecoverCmdList(), host);
+        restore.execute();
     }
+
+    @Override
+    public String toString() {
+        //return super.toString(); //To change body of generated methods, choose Tools | Templates.
+        return this.getHost().getbackupCmdString();
+    }
+    
     
     
     

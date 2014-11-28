@@ -7,34 +7,28 @@
 package jrsync;
 
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 
 /**
  *
  * @author Administrator
  */
 public class AddHostWork extends javax.swing.JFrame {
-    private String rhostnameString;
-    private String rhostUserString;    
-    private String rhostdirString;
     
-    private String rhostAllString;
-    
-    private String lhostDirString;    
-    private String rsyncCmdString;
-  
-    private HostWork hostwork;
-    
-    private ArrayList<HostWork> hostworks;
+    private HostWork hostwork = new HostWork();
+    String rsyncCmdString;
+    //private ArrayList<HostWork> hostworks;
+    private DefaultListModel<HostWork> dlmhw;
     
     /**
      * Creates new form AddHost
      */
-    public AddHostWork(ArrayList<HostWork> hostworks) {
+    public AddHostWork(DefaultListModel<HostWork> dlmhw) {
         
         initComponents();       
-        this.hostworks = hostworks;
+        this.dlmhw = dlmhw;       
         rsyncCmdString = jTrsyncCmd.getText();
-        hostwork = new HostWork();
+        
     }
 
     /**
@@ -313,22 +307,24 @@ public class AddHostWork extends javax.swing.JFrame {
     }//GEN-LAST:event_jTremoteHostInputMethodTextChanged
 
     private void jTremoteHostCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTremoteHostCaretUpdate
-       rhostnameString = jTremoteHost.getText();
-     
+        String rhostnameString = jTremoteHost.getText();
+        hostwork.getHost().setrhost(rhostnameString);
     }//GEN-LAST:event_jTremoteHostCaretUpdate
 
     private void jTlocalDirCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTlocalDirCaretUpdate
-       lhostDirString = jTlocalDir.getText();
+       String lhostDirString = jTlocalDir.getText();
+       hostwork.getHost().setlhostDir(lhostDirString);
       
     }//GEN-LAST:event_jTlocalDirCaretUpdate
 
     private void jTuserNameCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTuserNameCaretUpdate
-        rhostUserString = jTuserName.getText();
-        
+       String rhostUserString = jTuserName.getText();
+        hostwork.getHost().setrhostUser(rhostUserString);
     }//GEN-LAST:event_jTuserNameCaretUpdate
 
     private void jTremoteDirCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTremoteDirCaretUpdate
-        rhostdirString = jTremoteDir.getText();
+        String rhostdirString = jTremoteDir.getText();
+        hostwork.getHost().setrhostDir(rhostdirString);
         
     }//GEN-LAST:event_jTremoteDirCaretUpdate
 
@@ -356,8 +352,8 @@ public class AddHostWork extends javax.swing.JFrame {
         
         updateHost();
         //MJFrame.addNewHost(hostnow);
-        this.hostworks.add(hostwork);
-        
+        this.dlmhw.addElement(hostwork);        
+        //this.dlmhw.add(hostwork);
         this.dispose();
         //MJFrame.update();        
        // hostnow = new Host();
@@ -382,10 +378,10 @@ public class AddHostWork extends javax.swing.JFrame {
     
     public void updateHost(){
         
-          hostwork.getHost().setrhostUser(rhostUserString);
-          hostwork.getHost().setrhost(rhostnameString);
-          hostwork.getHost().setrhostDir(rhostdirString);
-          hostwork.getHost().setlhostDir(lhostDirString);
+          //hostwork.getHost().setrhostUser(rhostUserString);
+          //hostwork.getHost().setrhost(rhostnameString);
+         // hostwork.getHost().setrhostDir(rhostdirString);
+          //hostwork.getHost().setlhostDir(lhostDirString);
           hostwork.getHost().setrsyncCmd(rsyncCmdString);
           
           hostwork.getHost().upDateHost(); //.updatetheHost();

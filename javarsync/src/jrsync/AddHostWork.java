@@ -175,6 +175,7 @@ public class AddHostWork extends javax.swing.JFrame {
 
         jLabel3.setText("rsync command:");
 
+        jTBackupCmd.setEditable(false);
         jTBackupCmd.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTBackupCmdFocusGained(evt);
@@ -188,6 +189,7 @@ public class AddHostWork extends javax.swing.JFrame {
 
         jLabel4.setText("restore command:");
 
+        jTrecoverCmd.setEditable(false);
         jTrecoverCmd.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTrecoverCmdFocusGained(evt);
@@ -264,7 +266,7 @@ public class AddHostWork extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("宋体", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel8.setText("添加完毕之后，请在主窗口点击保存以保存修改。");
+        jLabel8.setText("添加完毕之后，请在主窗口点击保存按钮以保存修改。");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

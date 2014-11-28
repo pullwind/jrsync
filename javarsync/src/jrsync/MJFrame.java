@@ -82,6 +82,8 @@ public class MJFrame extends javax.swing.JFrame {
         Save = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         jListHost = new javax.swing.JList();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextAreaHost = new javax.swing.JTextArea();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         rsyncLog = new javax.swing.JTextArea();
@@ -150,7 +152,16 @@ public class MJFrame extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        jListHost.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jListHostMouseClicked(evt);
+            }
+        });
         jScrollPane5.setViewportView(jListHost);
+
+        jTextAreaHost.setColumns(20);
+        jTextAreaHost.setRows(5);
+        jScrollPane2.setViewportView(jTextAreaHost);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -171,8 +182,10 @@ public class MJFrame extends javax.swing.JFrame {
                 .addGap(0, 216, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2)
+                .addContainerGap())
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {Load, Save, b_start, b_stop, jButton1, jButton2});
@@ -180,8 +193,10 @@ public class MJFrame extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(118, 118, 118)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(b_start)
                     .addComponent(b_stop)
@@ -513,6 +528,20 @@ public class MJFrame extends javax.swing.JFrame {
         cmdLog.append("停止所调用的rsync进程" +  p.toString()); // mytablemodel.getSelectHost(jTable1.getSelectedRow()).getHostProcess().toString() + "\n");
     }//GEN-LAST:event_StoprecoverActionPerformed
 
+    private void jListHostMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListHostMouseClicked
+        // TODO add your handling code here:
+        Host host =this.dlmhostworks.get( this.jListHost.getSelectedIndex()).getHost();
+        jTextAreaHost.setText(" ");
+        jTextAreaHost.append("\n username:  " + host.getrhostUser());
+        jTextAreaHost.append("\n remote host:   " + host.getrhost());
+        jTextAreaHost.append("\n remote directory:  " + host.getrhostDir());
+        jTextAreaHost.append("\n local directory:   " + host.getlhostDir());
+        jTextAreaHost.append("\n rsync cmd: " + host.getrsyncCmd());
+        jTextAreaHost.append("\n backup rsync cmd:  " + host.getbackupCmdString());
+        jTextAreaHost.append("\n restore rsync cmd: " + host.getrecoverCmdString());
+        
+    }//GEN-LAST:event_jListHostMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -616,9 +645,11 @@ public class MJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JTextArea jTextAreaHost;
     private javax.swing.JMenuItem mHelp;
     private javax.swing.JMenuItem recover;
     private javax.swing.JTextArea rsyncLog;

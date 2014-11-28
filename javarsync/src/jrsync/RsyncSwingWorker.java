@@ -28,19 +28,17 @@ import javax.swing.SwingWorker;
  */
 public class RsyncSwingWorker extends SwingWorker<Object, Object>{
     private JTextArea cmdlog;
-    private ArrayList<String> al;
+    private ArrayList<String> cmdlist;
     private Calendar tStart;
     private Calendar tEnd;
-    private int selectRow;
-    private ArrayList<Host> hosts;
+    private Host host;
     
     
-    public RsyncSwingWorker(int selectRow,JTextArea showtxt, ArrayList<Host> hosts, ArrayList<String> al, Calendar star ) {
-        cmdlog = showtxt;
-        this.al = al;
-        tStart = star;
-        this.selectRow = selectRow;
-        this.hosts = hosts;
+    
+    public RsyncSwingWorker(JTextArea showtxt, ArrayList<String> cmdlist, Host host ) {
+        cmdlog = showtxt;       
+        this.cmdlist = cmdlist;
+        this.host = host;
         
     }
 
@@ -48,21 +46,11 @@ public class RsyncSwingWorker extends SwingWorker<Object, Object>{
     
     @Override
     protected Object doInBackground() throws Exception {
-        
+        tStart = Calendar.getInstance();
      
-        try {
-            //Host nowhost = lm.get(jList1.getSelectedIndex()); 
-            //ArrayList<String> al1 = nowhost.getRcmd();  
-            //cmdLog.append(nowhost.getOriginalString());
+        try {          
             
-             ProcessBuilder pb = new ProcessBuilder(al);            
-            
-            // rcmdstr.setText(processBuilder.toString());
-           //pb.redirectErrorStream(true);
-           //  pb.redirectError(Redirect.PIPE);
-          // pb.redirectInput(Redirect.PIPE);
-         //    pb.redirectInput(Redirect.INHERIT);
-         //  pb.redirectOutput(Redirect.PIPE);
+             ProcessBuilder pb = new ProcessBuilder(this.cmdlist);            
            
              //之前用的
           // pb.redirectError(Redirect.INHERIT);
@@ -74,7 +62,8 @@ public class RsyncSwingWorker extends SwingWorker<Object, Object>{
           //  pb.redirectOutput(ProcessBuilder.Redirect.appendTo(log));
             Process p =  pb.start();
             // set host process
-            hosts.get(selectRow).setHostProcess(p);
+            host.setProcess(p);
+            //hosts.get(selectRow).setHostProcess(p);
           //  PrintStream ps = null;
             //  System.setOut(ps);
          

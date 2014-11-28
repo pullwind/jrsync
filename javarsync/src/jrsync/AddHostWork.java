@@ -6,11 +6,13 @@
 
 package jrsync;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Administrator
  */
-public class AddHost extends javax.swing.JFrame {
+public class AddHostWork extends javax.swing.JFrame {
     private String rhostnameString;
     private String rhostUserString;    
     private String rhostdirString;
@@ -20,16 +22,19 @@ public class AddHost extends javax.swing.JFrame {
     private String lhostDirString;    
     private String rsyncCmdString;
   
-    private Host hostnow;
+    private HostWork hostwork;
+    
+    private ArrayList<HostWork> hostworks;
     
     /**
      * Creates new form AddHost
      */
-    public AddHost() {
-        initComponents();
-       
+    public AddHostWork(ArrayList<HostWork> hostworks) {
+        
+        initComponents();       
+        this.hostworks = hostworks;
         rsyncCmdString = jTrsyncCmd.getText();
-       hostnow = new Host();
+        hostwork = new HostWork();
     }
 
     /**
@@ -350,7 +355,8 @@ public class AddHost extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
         updateHost();
-        MJFrame.addNewHost(hostnow);
+        //MJFrame.addNewHost(hostnow);
+        this.hostworks.add(hostwork);
         
         this.dispose();
         //MJFrame.update();        
@@ -376,53 +382,21 @@ public class AddHost extends javax.swing.JFrame {
     
     public void updateHost(){
         
-          hostnow.setrhostUser(rhostUserString);
-          hostnow.setrhost(rhostnameString);
-          hostnow.setrhostDir(rhostdirString);
-          hostnow.setlhostDir(lhostDirString);
-          hostnow.setrsyncCmd(rsyncCmdString);
+          hostwork.getHost().setrhostUser(rhostUserString);
+          hostwork.getHost().setrhost(rhostnameString);
+          hostwork.getHost().setrhostDir(rhostdirString);
+          hostwork.getHost().setlhostDir(lhostDirString);
+          hostwork.getHost().setrsyncCmd(rsyncCmdString);
           
-          hostnow.updatetheHost();
+          hostwork.getHost().upDateHost(); //.updatetheHost();
           
-          jTBackupCmd.setText(hostnow.getbackupCmd());
-          jTrecoverCmd.setText(hostnow.getrecoverCmd());
+          jTBackupCmd.setText(hostwork.getHost().getbackupCmdString()); //w.getbackupCmd());
+          jTrecoverCmd.setText(hostwork.getHost().getrecoverCmdString());
+            //hostnow.getrecoverCmd());
           
        }
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddHost.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddHost.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddHost.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddHost.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AddHost().setVisible(true);
-            }
-        });
-    }
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

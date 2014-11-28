@@ -36,29 +36,15 @@ import sun.security.krb5.Confounder;
  * @author Administrator
  */
 public class MJFrame extends javax.swing.JFrame {
-    String rsynccmd;
-    static public ArrayList<Host> hosts = new ArrayList<Host>();
-    static public myTableModel mytablemodel;
-    static MJFrame mjframe;
-    //static public myTableModel mytm2;
     
-   //static DefaultListModel<Host> lm;
-    
-    
+    private ArrayList<HostWork> hostworks;
     
     /**
      * Creates new form MJFrame
      */
     public MJFrame() {
         initComponents();
-        mjframe = this ;
-        mytablemodel = new myTableModel(hosts);
-        //mytm2 = new myTableModel(hosts);
-        jTable1.setModel(mytablemodel);
-        //jTable2.setModel(mytm2);
-        
-        //lm = new DefaultListModel<Host>();
-        //jList1.setModel(lm);
+       
         try {
             LoadFile();
             cmdLog.append("load host.txt");
@@ -74,12 +60,7 @@ public class MJFrame extends javax.swing.JFrame {
             System.setOut(ps); 
  
     }
-    
-     public void update(){
-        mytablemodel.fireTableDataChanged();
-        
-    }
-
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -96,10 +77,8 @@ public class MJFrame extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         Load = new javax.swing.JButton();
         Save = new javax.swing.JButton();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jListHost = new javax.swing.JList();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         rsyncLog = new javax.swing.JTextArea();
@@ -112,9 +91,6 @@ public class MJFrame extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItemAdd = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         recover = new javax.swing.JMenuItem();
         Stoprecover = new javax.swing.JMenuItem();
@@ -171,36 +147,12 @@ public class MJFrame extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
-            }
+        jListHost.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane4.setViewportView(jTable1);
-
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane5.setViewportView(jListHost);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -219,8 +171,10 @@ public class MJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Save)
                 .addGap(0, 216, Short.MAX_VALUE))
-            .addComponent(jScrollPane4)
-            .addComponent(jScrollPane2)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {Load, Save, b_start, b_stop, jButton1, jButton2});
@@ -228,10 +182,8 @@ public class MJFrame extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(118, 118, 118)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(b_start)
                     .addComponent(b_stop)
@@ -313,21 +265,6 @@ public class MJFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
-
-        jMenuItemAdd.setText("Add");
-        jMenuItemAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemAddActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItemAdd);
-
-        jMenuItem7.setText("Delete");
-        jMenu2.add(jMenuItem7);
-
-        jMenuBar1.add(jMenu2);
-
         jMenu4.setText("restore");
 
         recover.setText("restore");
@@ -397,32 +334,18 @@ public class MJFrame extends javax.swing.JFrame {
       try {  
           // host
          // if(//jList1.getSelectedIndex() == -1){
-          if(jTable1.getSelectedRow() == -1){
+         if( false){
               cmdLog.append("请选择列表中的一行以进行备份 \n");
              
           }
           else{
               
-               int row = jTable1.getSelectedRow();
-             
-               Host nowhost = mytablemodel.getSelectHost(row);
-             
-            // int selecti = jTable1.getSelectedRow();
-            // Host nowhost = mytablemodel.getSelectHost(selecti);
-             
-             //Host nowhost = lm.get(jList1.getSelectedIndex());          
-            //ArrayList<String> alist1 = nowhost.getRcmd();             
-            
-            cmdLog.append(nowhost.toString() + "\n");
+               int row = jListHost.getSelectedIndex(); //.getSelectedRow();             
+               HostWork nowhostwork = hostworks.get(row); // .getSelectHost(row);
+               
+            cmdLog.append(nowhostwork.toString() + "\n");
             cmdLog.append("开始执行备份线程......\n");
-            
-            RsyncSwingWorker rsw = new RsyncSwingWorker(row,cmdLog,hosts,nowhost.getbackupCmdList(),cStart);
-           mytablemodel.getSelectHost(row).setHostRsyncSwingWorker(rsw);
-           
-           mytablemodel.setSelectHost(row, mytablemodel.getSelectHost(row));
-           cmdLog.append("hostRsyncSwingWorker :" + mytablemodel.getSelectHost(row).getHostRsyncSwingWorker().toString() + "\n");
-           rsw.execute();
-           
+           nowhostwork.hostRsync();
             
           }
         
@@ -452,58 +375,33 @@ public class MJFrame extends javax.swing.JFrame {
         }
        */
     }
-    static public void addNewHost(Host host){
-       
-        hosts.add(host);
-        mytablemodel.fireTableDataChanged();
-        
-        
-    }
+   
     
     private void b_stopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_stopActionPerformed
          
-        mytablemodel.getSelectHost(jTable1.getSelectedRow()).getHostProcess().destroyForcibly();
-        cmdLog.append("停止进程" +  mytablemodel.getSelectHost(jTable1.getSelectedRow()).getHostProcess().toString() + "\n");
+        //mytablemodel.getSelectHost(jTable1.getSelectedRow()).getHostProcess().destroyForcibly();
+        Process process =((HostWork)jListHost.getSelectedValue()).getHost().getProcess();
+        process.destroyForcibly();
+        cmdLog.append("停止进程" + process.toString()); // mytablemodel.getSelectHost(jTable1.getSelectedRow()).getHostProcess().toString() + "\n");
                 
                     
     }//GEN-LAST:event_b_stopActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-       // jTable1.validate();
-        
-        AddHost addhost = new AddHost();
+       
+        AddHostWork addhost = new AddHostWork(this.hostworks);
         addhost.setVisible(rootPaneCheckingEnabled);
        
-        //addhost.setEnabled(rootPaneCheckingEnabled);
-        
-        /*
-        String str =JOptionPane.showInputDialog(this, "rsync -a --delete root@192.168.0.250:/home /data1/250", "add", JOptionPane.WARNING_MESSAGE);
-        String[] strarray = str.split(" ");
-        ArrayList<String> alist = new ArrayList<String>();
-        
-        for( int i=0 ; i< strarray.length; i++){
-            alist.add(strarray[i]);            
-        }        
-        Host hostnew = new Host(alist, str);        
-        //hosts.add(hostnew);        
-        // show txt in rsyncLog
-        rsyncLog.append(hostnew.getRcmdstr());
-        // show in jlist              
-        lm.addElement(hostnew); 
-        */
-        
-        
-        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         try {
-            int si = jTable1.getSelectedRow(); //.getSelectedIndex();
+            int si = jListHost.getSelectedIndex(); //.getSelectedRow(); //.getSelectedIndex();
             //lm.remove(si);            
-            mytablemodel.deleteHost(si);
-            mytablemodel.fireTableDataChanged();
+            //mytablemodel.deleteHost(si);
+            this.hostworks.remove(si);
+            //mytablemodel.fireTableDataChanged();
             //SaveFile();
         }catch (ArrayIndexOutOfBoundsException e) {
           rsyncLog.append(e.toString());
@@ -515,56 +413,43 @@ public class MJFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void LoadFile(){
+        RFile rfile = new RFile("hostwork.txt");
+        rfile.openFile();
+       // lm =  (DefaultListModel<Host>) rfile.readFile();
+      //  mytablemodel = (myTableModel) rfile.readFile();
+        ArrayList<HostWork> arraylisthw = (ArrayList<HostWork>)rfile.readFile();
+        this.hostworks.addAll(arraylisthw);
+        //hosts.addAll(ah);
+        //hosts = (ArrayList<Host>)rfile.readFile();
+        //mytablemodel.fireTableDataChanged();
+         
+        rfile.closeFile();
+    }
+    
     private void LoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadActionPerformed
         // TODO add your handling code here:
-        RFile rfile = new RFile("host.txt");
+        RFile rfile = new RFile("hostwork.txt");
         rfile.openFile();
        // lm =  (DefaultListModel<Host>) rfile.readFile();
       //  mytablemodel = (myTableModel) rfile.readFile();
-        ArrayList<Host> ah = (ArrayList<Host>)rfile.readFile();
-        hosts.addAll(ah);
+        ArrayList<HostWork> arraylisthw = (ArrayList<HostWork>)rfile.readFile();
+        this.hostworks.addAll(arraylisthw);
+        //hosts.addAll(ah);
         //hosts = (ArrayList<Host>)rfile.readFile();
-        mytablemodel.fireTableDataChanged();
-        
-        
+        //mytablemodel.fireTableDataChanged();
+         
         rfile.closeFile();
         
-        // mytm2 = new myTableModel(hosts);
-        //jTable2.setModel(mytm2);
         
-        
-        //jList1.setModel(lm);
-       // jList1.validate();
-       // jTable1.setModel(mytablemodel);
-       // mytablemodel.fireTableDataChanged();
-        //jTable1.validate();
     }//GEN-LAST:event_LoadActionPerformed
-    
-    private void SaveFile(){
-        WFile wfile = new WFile();
-        wfile.openFile();
-        wfile.WtoFile(hosts);
-        wfile.closeFile();
-    }
-    
-    private void LoadFile(){
-       RFile rfile = new RFile("host.txt");
-        rfile.openFile();
-       // lm =  (DefaultListModel<Host>) rfile.readFile();
-      //  mytablemodel = (myTableModel) rfile.readFile();
-        ArrayList<Host> ah = (ArrayList<Host>)rfile.readFile();
-        hosts.addAll(ah);
-        //hosts = (ArrayList<Host>)rfile.readFile();
-        mytablemodel.fireTableDataChanged();
-        rfile.closeFile(); 
-        
-    }
+   
     
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
         // TODO add your handling code here:
-        WFile wfile = new WFile();
+        WFile wfile = new WFile("hostwork.txt");
         wfile.openFile();
-        wfile.WtoFile(hosts);
+        wfile.WtoFile(this.hostworks);
         wfile.closeFile();
         
     }//GEN-LAST:event_SaveActionPerformed
@@ -586,20 +471,11 @@ public class MJFrame extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        WFile wfile = new WFile();
+        WFile wfile = new WFile("hostwork.txt");
         wfile.openFile();
         //wfile.WtoFile(lm);
         wfile.closeFile();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void jMenuItemAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAddActionPerformed
-        // TODO add your handling code here:
-       AddHost addhost = new AddHost();
-      // addhost.sete
-       addhost.setVisible(rootPaneCheckingEnabled);
-       // NewJFrameTest njt = new NewJFrameTest();
-        //njt.setv
-    }//GEN-LAST:event_jMenuItemAddActionPerformed
 
     private void mHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mHelpActionPerformed
         // TODO add your handling code here:
@@ -609,34 +485,22 @@ public class MJFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_mHelpActionPerformed
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        // TODO add your handling code here:
-        int row = jTable1.getSelectedRow();
-        Host nowselectHost = hosts.get(row);
-        ArrayList<String> backupcmdlistnow = nowselectHost.getbackupCmdList();
-        myTableModel_str mytm2 = new myTableModel_str(backupcmdlistnow);
-        jTable2.setModel(mytm2);
-        
-        
-    }//GEN-LAST:event_jTable1MouseClicked
-
     private void recoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recoverActionPerformed
         // TODO add your handling code here:
          Calendar cStart = Calendar.getInstance();    
        //Calendar cEnd;               
-        cmdLog.append("开始时间：" + cStart.getTime().toString() + "\n");
+         cmdLog.append("开始时间：" + cStart.getTime().toString() + "\n");
         cmdLog.validate();
         
       try {  
-          // host
-         // if(//jList1.getSelectedIndex() == -1){
-          if(jTable1.getSelectedRow() == -1){
+         
+          if(jListHost.getSelectedIndex() == -1){
               cmdLog.append("请选择列表中的一行以进行还原作业 \n");
              
           }
           else{
               
-             int re =  JOptionPane.showConfirmDialog(rootPane, "Select the row to restore", "restore", JOptionPane.YES_NO_OPTION);
+             int re =  JOptionPane.showConfirmDialog(rootPane, "Please confirm that the selections are correct before restore", "restore", JOptionPane.YES_NO_OPTION);
               
              if(re ==0){
                  
@@ -644,28 +508,12 @@ public class MJFrame extends javax.swing.JFrame {
                  throw new Exception("no ");
              }
               
-               int row = jTable1.getSelectedRow();
-               Host nowhost = mytablemodel.getSelectHost(row);
-             
-            // int selecti = jTable1.getSelectedRow();
-            // Host nowhost = mytablemodel.getSelectHost(selecti);
-             //Host nowhost = lm.get(jList1.getSelectedIndex());          
-            //ArrayList<String> alist1 = nowhost.getRcmd();             
+               int row = jListHost.getSelectedIndex();
+               HostWork nowhostwork = this.hostworks.get(row); //getSelectHost(row);
+                         
             
-            cmdLog.append(nowhost.toString() + "\n");
+            cmdLog.append(nowhostwork.getHost().getrecoverCmdString() + "\n");
             cmdLog.append("开始执行 线程......\n");
-            
-            
-          //  RsyncSwingWorker rsw = new RsyncSwingWorker(row,cmdLog,hosts,nowhost.getbackupCmdList(),cStart);
-            RsyncSwingWorker rsw = new RsyncSwingWorker(row,cmdLog,hosts,nowhost.getrecoverCmdList(),cStart);
-           mytablemodel.getSelectHost(row).setHostRsyncSwingWorker(rsw);
-           
-           mytablemodel.setSelectHost(row, mytablemodel.getSelectHost(row));
-           cmdLog.append("线程 :" + mytablemodel.getSelectHost(row).getHostRsyncSwingWorker().toString() + "\n");
-           rsw.execute();
-            //rsw.
-            //rsw.w
-            //rsw.
             
           }
       }catch(Exception e) {
@@ -676,8 +524,10 @@ public class MJFrame extends javax.swing.JFrame {
 
     private void StoprecoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StoprecoverActionPerformed
         // TODO add your handling code here:
-        mytablemodel.getSelectHost(jTable1.getSelectedRow()).getHostProcess().destroyForcibly();
-        cmdLog.append("停止所调用的rsync进程" +  mytablemodel.getSelectHost(jTable1.getSelectedRow()).getHostProcess().toString() + "\n");
+        //mytablemodel.getSelectHost(jTable1.getSelectedRow()).getHostProcess().destroyForcibly();
+        Process p = this.hostworks.get( jListHost.getSelectedIndex()).getHost().getProcess();
+        p.destroyForcibly();
+        cmdLog.append("停止所调用的rsync进程" +  p.toString()); // mytablemodel.getSelectHost(jTable1.getSelectedRow()).getHostProcess().toString() + "\n");
     }//GEN-LAST:event_StoprecoverActionPerformed
 
     /**
@@ -770,8 +620,8 @@ public class MJFrame extends javax.swing.JFrame {
     private javax.swing.JTextArea cmdLog;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JList jListHost;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
@@ -779,18 +629,13 @@ public class MJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItemAdd;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JPopupMenu.Separator jSeparator1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JMenuItem mHelp;
     private javax.swing.JMenuItem recover;
     private javax.swing.JTextArea rsyncLog;

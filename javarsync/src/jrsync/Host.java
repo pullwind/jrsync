@@ -29,7 +29,28 @@ public class Host implements  Serializable{
     private String backupCmdString;
     private String recoverCmdString;
    
-    private Process hostProcess = null;
+    
+        private Process process;
+
+    /**
+     * Get the value of process
+     *
+     * @return the value of process
+     */
+    public Process getProcess() {
+        return process;
+    }
+
+    /**
+     * Set the value of process
+     *
+     * @param process new value of process
+     */
+    public void setProcess(Process process) {
+        this.process = process;
+    }
+
+    
 
     
     public void  setrhostUser(String rhostUserName){
@@ -153,7 +174,10 @@ public class Host implements  Serializable{
     }    
 
     public void upDateHost(){
-        
+        setbackupCmdList();
+        setbackupCmdString();
+        setrecoverCmdList();
+        setrecoverCmdString();
         
     }
     

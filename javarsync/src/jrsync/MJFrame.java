@@ -356,16 +356,18 @@ public class MJFrame extends javax.swing.JFrame {
     private void jButtonStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStopActionPerformed
          
         //mytablemodel.getSelectHost(jTable1.getSelectedRow()).getHostProcess().destroyForcibly();
-         ((HostWork)jListHost.getSelectedValue()).getTimer().cancel();
+        // ((HostWork)jListHost.getSelectedValue()).getTimer().cancel();
                 
-        ArrayList<Process> processList =((HostWork)jListHost.getSelectedValue()).getHost().getProcessList();
+       // ArrayList<Process> processList =((HostWork)jListHost.getSelectedValue()).getHost().getProcessList();
+        ((HostWork)jListHost.getSelectedValue()).ScheduledFutureCacel();
+        /*
         for(int i=0; i< processList.size(); i++){
            // process.destroyForcibly();
             processList.get(i).destroyForcibly();
            // cmdLog.append("停止进程" + process.toString());
             cmdLog.append("停止进程:   " + processList.get(i).toString());
         }
-        
+        */
         //cmdLog.append("停止进程" + process.toString()); // mytablemodel.getSelectHost(jTable1.getSelectedRow()).getHostProcess().toString() + "\n");
                 
                     
@@ -527,6 +529,7 @@ public class MJFrame extends javax.swing.JFrame {
         ArrayList<Process> processlist = hostwork.getHost().getProcessList();
         jTextAreaHost.append("\n ############################################");
         jTextAreaHost.append("\n now runing : " + processlist.size() + "task.");
+        jTextAreaHost.append("\n now ScheduleFuture :  " + hostwork.getScheduledFuture().size() );
         
         //hostwork.getTimer().
         if(!host.getProcessList().isEmpty()){

@@ -201,7 +201,8 @@ public class HostWorkPeriod extends javax.swing.JFrame {
             Long delay = 1000*60* Long.parseUnsignedLong(jTextFieldDelay.getText());
         this.hostwork.settimerdelay(delay);        
         //hours
-        this.hostwork.settimerperiod(1000*60*60*Long.parseUnsignedLong(jTextFieldPeriod.getText()));
+        this.hostwork.settimerperiod(Long.parseUnsignedLong(jTextFieldPeriod.getText()));
+        //this.hostwork.settimerperiod(1000*60*60*Long.parseUnsignedLong(jTextFieldPeriod.getText()));
         } catch (NumberFormatException e) {
             jLabel4.setText("请输入数字");
         }
@@ -251,8 +252,9 @@ public class HostWorkPeriod extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             //minitue
-            Long delay = 1000*60* Long.parseUnsignedLong(jTextFieldDelay.getText());
-        this.hostwork.settimerdelay(delay);        
+            Long delay = Long.parseUnsignedLong(jTextFieldDelay.getText());
+            //Long delay = 1000*60* Long.parseUnsignedLong(jTextFieldDelay.getText());
+             this.hostwork.settimerdelay(delay);        
         //hours
       //  this.hostwork.settimerperiod(1000*60*60*Long.parseUnsignedLong(jTextFieldPeriod.getText()));
         

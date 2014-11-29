@@ -6,47 +6,32 @@
 
 package jrsync;
 
-import java.io.File;
 import java.io.InputStream;
-import java.io.PrintStream;
-import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JTextArea;
-import javax.swing.SwingWorker;
 
 
 /**
  *
  * @author Administrator
  */
-public class RsyncSwingWorker extends SwingWorker<Object, Object>{
-    private JTextArea cmdlog;
+public class MyRunnable implements Runnable{
     private ArrayList<String> cmdlist;
     private Calendar tStart;
     private Calendar tEnd;
     private Host host;
-    
-    
-    
-    public RsyncSwingWorker(JTextArea cmdlog, ArrayList<String> cmdlist, Host host ) {
-        this.cmdlog = cmdlog;       
+
+    public MyRunnable(ArrayList<String> cmdlist, Host host) {
         this.cmdlist = cmdlist;
         this.host = host;
-        
     }
-
+    
     
     
     @Override
-    protected Object doInBackground() throws Exception {
-        tStart = Calendar.getInstance();     
+    public void run() {
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         tStart = Calendar.getInstance();     
         try {     
             
              ProcessBuilder pb = new ProcessBuilder(this.cmdlist);            
@@ -55,7 +40,6 @@ public class RsyncSwingWorker extends SwingWorker<Object, Object>{
           // pb.redirectError(Redirect.INHERIT);
           // pb.redirectInput(Redirect.INHERIT);
           // pb.redirectOutput(Redirect.INHERIT);
-           
             //pbProc.re
           //  File log = new File("log.txt");
           //  pb.redirectOutput(ProcessBuilder.Redirect.appendTo(log));
@@ -64,7 +48,7 @@ public class RsyncSwingWorker extends SwingWorker<Object, Object>{
             host.addProcesstoList(p);
             //host.setProcess(p);
             //hosts.get(selectRow).setHostProcess(p);
-          //  PrintStream ps = null;
+            //  PrintStream ps = null;
             //  System.setOut(ps);
          
             //Thread for get inputStream.
@@ -80,7 +64,7 @@ public class RsyncSwingWorker extends SwingWorker<Object, Object>{
             
             p.waitFor();
             host.getProcessList().remove(p);
-            return 0;
+            
            
            // p.
           // assert pb.redirectInput() == Redirect.PIPE;
@@ -106,33 +90,8 @@ public class RsyncSwingWorker extends SwingWorker<Object, Object>{
            // threadExecutor.
             */
         } catch (Exception e) {
-            cmdlog.append(e.toString());
+           //.append(e.toString());
         }
-        
-        return 0 ;
-               
-    }
-
-    @Override
-    protected void done() {
-        try {
-           
-            cmdlog.append("exit code: " + this.get().toString() + " \n");
-            tEnd = Calendar.getInstance();
-            //cEnd = (Calendar) future.get();
-            long t1 = tStart.getTimeInMillis();
-            long t2 = tEnd.getTimeInMillis();
-            long sec = (t2 -t1)/1000;
-            long hour = (t2 -t1)/(60*60*1000);
-            cmdlog.append("用时: " + String.valueOf(hour) + "\n");
-            cmdlog.append("用秒: " + String.valueOf(sec) + "\n");
-                       
-        } catch (InterruptedException ex) {
-            Logger.getLogger(RsyncSwingWorker.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ExecutionException ex) {
-            Logger.getLogger(RsyncSwingWorker.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
     }
     
     

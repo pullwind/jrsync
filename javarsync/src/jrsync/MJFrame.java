@@ -523,12 +523,19 @@ public class MJFrame extends javax.swing.JFrame {
         
         jTextAreaHost.append("\n delay:  " + delay/60/1000 +  "minutes" );
         jTextAreaHost.append("\n period:  " + period/60/60/1000 + "hours ");
+       
+        ArrayList<Process> processlist = hostwork.getHost().getProcessList();
+        jTextAreaHost.append("\n ############################################");
+        jTextAreaHost.append("\n now runing : " + processlist.size() + "task.");
         
+        //hostwork.getTimer().
         if(!host.getProcessList().isEmpty()){
             jButtonStart.setEnabled(false);
+            jButtonStop.setEnabled(true);
             
         }else{
             jButtonStop.setEnabled(false);
+            jButtonStart.setEnabled(true);
         }
         
     }//GEN-LAST:event_jListHostMouseClicked

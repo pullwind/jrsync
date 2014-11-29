@@ -79,7 +79,9 @@ public class RsyncSwingWorker extends SwingWorker<Object, Object>{
             Thread tin= new Thread(sd);
             tin.start();
             
-             return  p.waitFor();
+            p.waitFor();
+            host.getProcessList().remove(p);
+            return 0;
            
            // p.
           // assert pb.redirectInput() == Redirect.PIPE;
@@ -108,7 +110,6 @@ public class RsyncSwingWorker extends SwingWorker<Object, Object>{
             cmdlog.append(e.toString());
         }
         
-        
         return 0 ;
                
     }
@@ -116,6 +117,8 @@ public class RsyncSwingWorker extends SwingWorker<Object, Object>{
     @Override
     protected void done() {
         try {
+           
+            
             cmdlog.append("exit code: " + this.get().toString() + " \n");
             tEnd = Calendar.getInstance();
             //cEnd = (Calendar) future.get();

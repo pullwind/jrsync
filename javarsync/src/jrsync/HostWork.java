@@ -21,14 +21,15 @@ public class HostWork  extends TimerTask implements Serializable{
         private JTextArea cmdlog;
         private long timerperiod;
         private long timerdelay;
-        private transient Timer timer;
+       // private transient Timer timer = new Timer();
+        
 
     public HostWork(JTextArea cmdlog) {
         this.cmdlog = cmdlog;
     }
    
     public Timer getTimer(){
-        return timer;
+        return new Timer(); //timer;
     }
     
     public void settimerperiod(Long period){
@@ -68,8 +69,10 @@ public class HostWork  extends TimerTask implements Serializable{
     public void hostRsyncOnce(){
         //RsyncSwingWorker rsw = new RsyncSwingWorker(this.cmdlog, host.getbackupCmdList(),host);
         //rsw.execute();
-        timer = new Timer();
+        
+        Timer timer  = new Timer();
         timer.schedule(this, timerdelay);
+        System.out.println("hostRsyncOnce");
                 
     }
 
@@ -87,9 +90,11 @@ public class HostWork  extends TimerTask implements Serializable{
     
     
     public void hostRsyncRepeat(){
-        timer = new Timer();
-        //MyTimerTask mytimerTask = new MyTimerTask();        
-        timer.schedule(this, this.timerdelay, this.timerperiod);        
+        
+        //MyTimerTask mytimerTask = new MyTimerTask();   
+        Timer timer  = new Timer();
+        timer.schedule(this, this.timerdelay, this.timerperiod); 
+        System.out.println("hostRsyncRepeat");
         
     }
 
@@ -98,7 +103,7 @@ public class HostWork  extends TimerTask implements Serializable{
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         RsyncSwingWorker rsw = new RsyncSwingWorker(this.cmdlog, host.getbackupCmdList(),host);
         rsw.execute();
-        
+        System.out.println("run of hostwork");
         //可能会有多个process, 而只保存了一个， 后期改用arraylist保存process.
     }
     

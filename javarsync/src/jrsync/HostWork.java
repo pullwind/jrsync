@@ -21,6 +21,7 @@ public class HostWork  extends TimerTask implements Serializable{
         private JTextArea cmdlog;
         private long timerperiod;
         private long timerdelay;
+        private transient Timer timer;
 
     public HostWork(JTextArea cmdlog) {
         this.cmdlog = cmdlog;
@@ -30,7 +31,7 @@ public class HostWork  extends TimerTask implements Serializable{
         this.timerperiod = period;
     }    
     
-    public Long gettimeperiod(){
+    public Long gettimerperiod(){
         return timerperiod;
     }
         
@@ -60,9 +61,10 @@ public class HostWork  extends TimerTask implements Serializable{
         this.host = host;
     }
     
-    public void hostRsync(){
-        RsyncSwingWorker rsw = new RsyncSwingWorker(this.cmdlog, host.getbackupCmdList(),host);
-        rsw.execute();
+    public void hostRsyncOnce(){
+        //RsyncSwingWorker rsw = new RsyncSwingWorker(this.cmdlog, host.getbackupCmdList(),host);
+        //rsw.execute();
+        timer.schedule(this, timerdelay);
                 
     }
 
@@ -77,11 +79,12 @@ public class HostWork  extends TimerTask implements Serializable{
         return this.getHost().getbackupCmdString();
     }
     
-    public void hostRsyncTimer(){
-        Timer timer = new Timer();
-        //MyTimerTask mytimerTask = new MyTimerTask();
-        timer.schedule(this, 0, 1*60*1000);
-        
+    
+    
+    public void hostRsyncRepeat(){
+        timer = new Timer();
+        //MyTimerTask mytimerTask = new MyTimerTask();        
+        timer.schedule(this, this.timerdelay, this.timerperiod);        
         
     }
 

@@ -205,6 +205,8 @@ public class HostWorkPeriod extends javax.swing.JFrame {
         }
         
         this.hostwork.hostRsyncRepeat();
+        
+        this.dispose();
         //nowhostwork.hostRsyncTimer();
         //this.notifyAll();
         //this.dispose();
@@ -214,8 +216,6 @@ public class HostWorkPeriod extends javax.swing.JFrame {
 
     private void jTextFieldDelayKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDelayKeyPressed
         // TODO add your handling code here:
-              
-            
         
     }//GEN-LAST:event_jTextFieldDelayKeyPressed
 
@@ -258,6 +258,7 @@ public class HostWorkPeriod extends javax.swing.JFrame {
         }
         
         this.hostwork.hostRsyncOnce();
+        this.dispose();
         
     }//GEN-LAST:event_jButtonStartOnceActionPerformed
 

@@ -62,7 +62,8 @@ public class RsyncSwingWorker extends SwingWorker<Object, Object>{
           //  pb.redirectOutput(ProcessBuilder.Redirect.appendTo(log));
             Process p =  pb.start();
             // set host process
-            host.setProcess(p);
+            host.addProcesstoList(p);
+            //host.setProcess(p);
             //hosts.get(selectRow).setHostProcess(p);
           //  PrintStream ps = null;
             //  System.setOut(ps);

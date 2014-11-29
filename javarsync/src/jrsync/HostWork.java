@@ -27,6 +27,10 @@ public class HostWork  extends TimerTask implements Serializable{
         this.cmdlog = cmdlog;
     }
    
+    public Timer getTimer(){
+        return timer;
+    }
+    
     public void settimerperiod(Long period){
         this.timerperiod = period;
     }    
@@ -64,6 +68,7 @@ public class HostWork  extends TimerTask implements Serializable{
     public void hostRsyncOnce(){
         //RsyncSwingWorker rsw = new RsyncSwingWorker(this.cmdlog, host.getbackupCmdList(),host);
         //rsw.execute();
+        timer = new Timer();
         timer.schedule(this, timerdelay);
                 
     }

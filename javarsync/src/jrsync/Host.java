@@ -27,30 +27,20 @@ public class Host implements Serializable{
     private String rsyncCmd;
     
     private String backupCmdString;
-    private String recoverCmdString;
+    private String recoverCmdString;   
+    
+   private transient ArrayList<Process> processList = new ArrayList<Process>();
    
-    
-   private transient Process process;
-
-    /**
-     * Get the value of process
-     *
-     * @return the value of process
-     */
-    public Process getProcess() {
-        return process;
+   
+    public ArrayList<Process> getProcessList() {
+        return processList;
     }
 
-    /**
-     * Set the value of process
-     *
-     * @param process new value of process
-     */
-    public void setProcess(Process process) {
-        this.process = process;
+    public void addProcesstoList(Process process) {
+       // this.process = process;
+        this.processList.add(process);
+        
     }
-
-    
 
     
     public void  setrhostUser(String rhostUserName){

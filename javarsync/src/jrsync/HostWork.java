@@ -19,13 +19,29 @@ public class HostWork  extends TimerTask implements Serializable{
        
         private Host host = new Host();
         private JTextArea cmdlog;
+        private long timerperiod;
+        private long timerdelay;
 
     public HostWork(JTextArea cmdlog) {
         this.cmdlog = cmdlog;
     }
    
+    public void settimerperiod(Long period){
+        this.timerperiod = period;
+    }    
+    
+    public Long gettimeperiod(){
+        return timerperiod;
+    }
         
-        
+    public void settimerdelay(Long delay){
+        this.timerdelay = delay;
+    }
+    
+    public Long gettimerdelay(){
+        return timerdelay;
+    }
+    
     /**
      * Get the value of host
      *

@@ -46,21 +46,23 @@ public class MJFrame extends javax.swing.JFrame {
      */
     public MJFrame() {
         initComponents();
-       
-        try {
-            LoadFile();
-            cmdLog.append("load host.txt");
-        } catch (Exception e) {
-           cmdLog.append("can't load host.txt");
-        }
-        
-        jListHost.setModel(dlmhostworks); //set model
-        //
-        MyOutputStream myout = new MyOutputStream(cmdLog);
+            MyOutputStream myout = new MyOutputStream(cmdLog);
             PrintStream ps;
             ps = new PrintStream(myout,rootPaneCheckingEnabled);
             //ps = new PrintStream(myout, true);
             System.setOut(ps); 
+            
+        try {
+            
+            LoadFile();
+            cmdLog.append("hostwork2.txt load ");
+        } catch (Exception e) {
+           cmdLog.append("can't load hostwork2.txt");
+        }
+        
+        jListHost.setModel(dlmhostworks); //set model
+        //
+        
  
     }
    
@@ -92,8 +94,6 @@ public class MJFrame extends javax.swing.JFrame {
         jButtonStop = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
@@ -105,7 +105,7 @@ public class MJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Host", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("宋体", 0, 12), new java.awt.Color(0, 51, 204))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Host", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("宋体", 0, 15), new java.awt.Color(0, 51, 204))); // NOI18N
 
         jListHost.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -171,7 +171,7 @@ public class MJFrame extends javax.swing.JFrame {
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {Save, jButton1, jButton2});
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "RsyncLog", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("宋体", 0, 12), new java.awt.Color(0, 51, 153))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "RsyncLog", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("宋体", 0, 15), new java.awt.Color(0, 51, 153))); // NOI18N
 
         rsyncLog.setEditable(false);
         rsyncLog.setColumns(20);
@@ -189,7 +189,7 @@ public class MJFrame extends javax.swing.JFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "cmdLog    check the terminal window。", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("宋体", 0, 12), new java.awt.Color(0, 51, 153))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "cmdLog    check the terminal window。", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("宋体", 0, 15), new java.awt.Color(0, 51, 153))); // NOI18N
 
         cmdLog.setEditable(false);
         cmdLog.setColumns(20);
@@ -255,24 +255,6 @@ public class MJFrame extends javax.swing.JFrame {
         );
 
         jMenu1.setText("File");
-
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem2.setText("Load");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem2);
-
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setText("Save");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem1);
         jMenu1.add(jSeparator1);
 
         jMenuItem3.setText("Exit");
@@ -400,13 +382,18 @@ public class MJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void LoadFile(){
-        RFile rfile = new RFile("hostwork.txt");
+        RFile rfile = new RFile("hostwork2.txt");
+       
         rfile.openFile();
        // lm =  (DefaultListModel<Host>) rfile.readFile();
       //  mytablemodel = (myTableModel) rfile.readFile();
         //ArrayList<HostWork> arraylisthw = (ArrayList<HostWork>)rfile.readFile();
-        DefaultListModel<HostWork> dlm = (DefaultListModel<HostWork>)rfile.readFile();
+        try {
+             DefaultListModel<HostWork> dlm = (DefaultListModel<HostWork>)rfile.readFile();
         this.dlmhostworks = dlm;
+        } catch (Exception e) {
+        }
+       
         //hosts.addAll(ah);
         //hosts = (ArrayList<Host>)rfile.readFile();
         //mytablemodel.fireTableDataChanged();
@@ -417,7 +404,7 @@ public class MJFrame extends javax.swing.JFrame {
     
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
         // TODO add your handling code here:
-        WFile wfile = new WFile("hostwork.txt");
+        WFile wfile = new WFile("hostwork2.txt");
         wfile.openFile();
         wfile.WtoFile(this.dlmhostworks);
         wfile.closeFile();
@@ -428,24 +415,6 @@ public class MJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(WIDTH);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-         RFile rfile = new RFile("host.txt");
-        rfile.openFile();
-      //  lm =  (DefaultListModel<Host>) rfile.readFile();
-        rfile.closeFile();
-     //   jList1.setModel(lm);
-       // jList1.validate();
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-        WFile wfile = new WFile("hostwork.txt");
-        wfile.openFile();
-        //wfile.WtoFile(lm);
-        wfile.closeFile();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void mHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mHelpActionPerformed
         // TODO add your handling code here:
@@ -508,6 +477,10 @@ public class MJFrame extends javax.swing.JFrame {
 
     private void jListHostMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListHostMouseClicked
         // TODO add your handling code here:
+       
+        try {
+            
+       
         HostWork hostwork = this.dlmhostworks.get(this.jListHost.getSelectedIndex());
         
         Host host = hostwork.getHost();
@@ -520,18 +493,28 @@ public class MJFrame extends javax.swing.JFrame {
         jTextAreaHost.append("\n rsync cmd: " + host.getrsyncCmd());
         jTextAreaHost.append("\n backup rsync cmd:  " + host.getbackupCmdString());
         jTextAreaHost.append("\n restore rsync cmd: " + host.getrecoverCmdString());
-        Long delay = this.dlmhostworks.get(this.jListHost.getSelectedIndex()).gettimerdelay();
-        Long period = this.dlmhostworks.get(this.jListHost.getSelectedIndex()).gettimerperiod();
+        Long delay = hostwork.gettimerdelay();
+        Long period = hostwork.gettimerperiod();
         
-        jTextAreaHost.append("\n delay:  " + delay/60/1000 +  "minutes" );
-        jTextAreaHost.append("\n period:  " + period/60/60/1000 + "hours ");
+        jTextAreaHost.append("\n delay:  "+ delay + " minutes" );
+        jTextAreaHost.append("\n period:  " +period + " minutes ( hours: "  + (period/60) + ")");
        
         ArrayList<Process> processlist = hostwork.getHost().getProcessList();
         jTextAreaHost.append("\n ############################################");
-        jTextAreaHost.append("\n now runing : " + processlist.size() + "task.");
-        jTextAreaHost.append("\n now ScheduleFuture :  " + hostwork.getScheduledFuture().size() );
+        jTextAreaHost.append("\n now runing process : " + processlist.size());
+        jTextAreaHost.append("\n now ScheduleFuture :  " + hostwork.getScheduledFutureList().size() );
+        for (int i=0; i< hostwork.getScheduledFutureList().size(); i++){
+            String taskcount = String.valueOf( hostwork.getScheduledThreadPoolExecutor().getTaskCount());
+            jTextAreaHost.append("\n Taskcount : " +taskcount);
+            
+        }
+        
+         } catch (NullPointerException e) {
+             
+        }
         
         //hostwork.getTimer().
+        /*
         if(!host.getProcessList().isEmpty()){
             jButtonStart.setEnabled(false);
             jButtonStop.setEnabled(true);
@@ -540,7 +523,7 @@ public class MJFrame extends javax.swing.JFrame {
             jButtonStop.setEnabled(false);
             jButtonStart.setEnabled(true);
         }
-        
+        */
     }//GEN-LAST:event_jListHostMouseClicked
 
     private void jButtonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartActionPerformed
@@ -679,8 +662,6 @@ public class MJFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;

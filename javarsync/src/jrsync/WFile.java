@@ -40,6 +40,7 @@ public class WFile {
     public void WtoFile(Object o){
         try {
             outputStream.writeObject(o);
+            
         } catch (IOException ex) {
             Logger.getLogger(WFile.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -49,6 +50,7 @@ public class WFile {
         
         if(outputStream != null){
             try {
+                //outputStream.
                 outputStream.close();
             } catch (IOException ex) {
                 Logger.getLogger(WFile.class.getName()).log(Level.SEVERE, null, ex);

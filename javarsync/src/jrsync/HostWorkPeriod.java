@@ -47,7 +47,7 @@ public class HostWorkPeriod extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Only once", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("宋体", 0, 12), javax.swing.UIManager.getDefaults().getColor("textHighlight"))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Only once", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("宋体", 0, 15), javax.swing.UIManager.getDefaults().getColor("textHighlight"))); // NOI18N
 
         jButtonStartOnce.setText("Start");
         jButtonStartOnce.addActionListener(new java.awt.event.ActionListener() {
@@ -73,16 +73,21 @@ public class HostWorkPeriod extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Repeat", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("宋体", 0, 12), java.awt.SystemColor.textHighlight)); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Repeat", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("宋体", 0, 15), java.awt.SystemColor.textHighlight)); // NOI18N
         jPanel2.setForeground(javax.swing.UIManager.getDefaults().getColor("TextArea.selectionBackground"));
 
+        jTextFieldPeriod.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                jTextFieldPeriodCaretUpdate(evt);
+            }
+        });
         jTextFieldPeriod.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldPeriodKeyTyped(evt);
             }
         });
 
-        jLabel2.setText("Period (hour):");
+        jLabel2.setText("Period (minitue):");
 
         jButtonStartRepeat.setText("Start Repeat");
         jButtonStartRepeat.addActionListener(new java.awt.event.ActionListener() {
@@ -124,7 +129,7 @@ public class HostWorkPeriod extends javax.swing.JFrame {
             }
         });
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Delay", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("宋体", 0, 12), java.awt.SystemColor.textHighlight)); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Delay", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("宋体", 0, 15), java.awt.SystemColor.textHighlight)); // NOI18N
         jPanel3.setForeground(javax.swing.UIManager.getDefaults().getColor("textHighlight"));
 
         jLabel1.setText("Delay (minitue):");
@@ -198,7 +203,7 @@ public class HostWorkPeriod extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             //minitue
-            Long delay = 1000*60* Long.parseUnsignedLong(jTextFieldDelay.getText());
+            Long delay = Long.parseUnsignedLong(jTextFieldDelay.getText());
         this.hostwork.settimerdelay(delay);        
         //hours
         this.hostwork.settimerperiod(Long.parseUnsignedLong(jTextFieldPeriod.getText()));
@@ -227,7 +232,7 @@ public class HostWorkPeriod extends javax.swing.JFrame {
         // TODO add your handling code here:
             int keyChar = evt.getKeyChar();                 
              if(keyChar >= KeyEvent.VK_0 && keyChar <= KeyEvent.VK_9){  
-                    
+                
                }else{  
                    evt.consume(); //关键，屏蔽掉非法输入  
                 }  
@@ -237,7 +242,7 @@ public class HostWorkPeriod extends javax.swing.JFrame {
         // TODO add your handling code here:
         int keyChar = evt.getKeyChar();                 
              if(keyChar >= KeyEvent.VK_0 && keyChar <= KeyEvent.VK_9){  
-                    
+                  
                }else{  
                    evt.consume(); //关键，屏蔽掉非法输入  
                 } 
@@ -266,6 +271,19 @@ public class HostWorkPeriod extends javax.swing.JFrame {
         this.dispose();
         
     }//GEN-LAST:event_jButtonStartOnceActionPerformed
+
+    private void jTextFieldPeriodCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextFieldPeriodCaretUpdate
+        // TODO add your handling code here:
+        try{
+            Long hour=  Long.parseUnsignedLong(jTextFieldPeriod.getText())/60;
+            jLabel4.setText(String.valueOf(hour) + " hours");
+        }catch(NumberFormatException e){
+            
+        }
+        
+                   ///60;
+          
+    }//GEN-LAST:event_jTextFieldPeriodCaretUpdate
 
 
 

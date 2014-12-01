@@ -34,8 +34,13 @@ public class MyRunnable implements Runnable{
          tStart = Calendar.getInstance();     
         try {     
             
-             ProcessBuilder pb = new ProcessBuilder(this.cmdlist);            
-           
+            //System.out.println("Create PorcessBuilder : " );
+             ProcessBuilder pb = new ProcessBuilder(this.cmdlist);  
+            String s="";
+             for(int i=0; i< this.cmdlist.size(); i++){
+                 s+= ( this.cmdlist.get(i) + " ");
+             }
+             System.out.println("Create PorcessBuilder from : " + s );
              //之前用的
           // pb.redirectError(Redirect.INHERIT);
           // pb.redirectInput(Redirect.INHERIT);
@@ -63,7 +68,10 @@ public class MyRunnable implements Runnable{
             tin.start();
             
             p.waitFor();
+            
             host.getProcessList().remove(p);
+            String useTime =HostWork.caculateTime(tStart);
+            System.out.println("Task done :" + useTime);
             
            
            // p.

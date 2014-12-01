@@ -7,6 +7,7 @@
 package jrsync;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -31,8 +32,14 @@ public class RFile {
     
     public void openFile(){
         try {
+            //inputStream.
             inputStream = new ObjectInputStream(new FileInputStream(filename));
-        } catch (IOException ex) {
+                
+// new FileInputStream(filename).
+        }catch(FileNotFoundException e) {
+            System.out.println("Can't find hostwork2.txt");
+        }
+        catch (IOException ex) {
             Logger.getLogger(RFile.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -41,7 +48,8 @@ public class RFile {
     public  Object readFile(){
         try {
             return inputStream.readObject();
-        } catch (ClassNotFoundException ex) {
+        }
+        catch (ClassNotFoundException ex) {
             Logger.getLogger(RFile.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(RFile.class.getName()).log(Level.SEVERE, null, ex);
@@ -52,6 +60,7 @@ public class RFile {
     
     public void closeFile(){
         try {
+           // if(inputStream.)
             inputStream.close();
         } catch (IOException ex) {
             Logger.getLogger(RFile.class.getName()).log(Level.SEVERE, null, ex);

@@ -145,12 +145,13 @@
       <SubComponents>
         <Component class="javax.swing.JTextField" name="jTextFieldPeriod">
           <Events>
+            <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="jTextFieldPeriodCaretUpdate"/>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldPeriodKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Period (hour):"/>
+            <Property name="text" type="java.lang.String" value="Period (minitue):"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonStartRepeat">

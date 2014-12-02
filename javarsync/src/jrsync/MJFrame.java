@@ -15,6 +15,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledFuture;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static javafx.scene.input.KeyCode.T;
@@ -211,6 +212,11 @@ public class MJFrame extends javax.swing.JFrame {
 
         jTextAreaHost.setColumns(20);
         jTextAreaHost.setRows(5);
+        jTextAreaHost.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextAreaHostMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTextAreaHost);
 
         jButtonStart.setText("Start Rsync");
@@ -478,9 +484,6 @@ public class MJFrame extends javax.swing.JFrame {
     private void jListHostMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListHostMouseClicked
         // TODO add your handling code here:
        
-        try {
-            
-       
         HostWork hostwork = this.dlmhostworks.get(this.jListHost.getSelectedIndex());
         
         Host host = hostwork.getHost();
@@ -493,6 +496,8 @@ public class MJFrame extends javax.swing.JFrame {
         jTextAreaHost.append("\n rsync cmd: " + host.getrsyncCmd());
         jTextAreaHost.append("\n backup rsync cmd:  " + host.getbackupCmdString());
         jTextAreaHost.append("\n restore rsync cmd: " + host.getrecoverCmdString());
+        jTextAreaHost.append("\n ############################################");
+        
         Long delay = hostwork.gettimerdelay();
         Long period = hostwork.gettimerperiod();
         
@@ -500,17 +505,37 @@ public class MJFrame extends javax.swing.JFrame {
         jTextAreaHost.append("\n period:  " +period + " minutes ( hours: "  + (period/60) + ")");
        
         ArrayList<Process> processlist = hostwork.getHost().getProcessList();
-        jTextAreaHost.append("\n ############################################");
+        
+        
+        
+        try{
+            jTextAreaHost.append("\n now ScheduleFuture :  " + hostwork.getScheduledFutureList().size() );
+        }catch (NullPointerException e2) {
+              ArrayList<ScheduledFuture<?>> scheduledfutureList = new ArrayList<ScheduledFuture<?>>();
+            hostwork.setScheduledFutureList(scheduledfutureList); 
+           //e2.printStackTrace();             
+        }
+         
+        try{
+            String taskcount = String.valueOf(hostwork.getScheduledThreadPoolExecutor().getTaskCount());
+          jTextAreaHost.append("\n  All Taskcount : " +taskcount);
+            String activetask = String.valueOf( hostwork.getScheduledThreadPoolExecutor().getActiveCount());
+            jTextAreaHost.append("\n Now Active task: " + activetask);
+          } catch (NullPointerException e3) {
+            hostwork.setScheduledThreadPoolExecutor(10); 
+           //e3.printStackTrace();             
+        }
+        try{
         jTextAreaHost.append("\n now runing process : " + processlist.size());
-        jTextAreaHost.append("\n now ScheduleFuture :  " + hostwork.getScheduledFutureList().size() );
-        for (int i=0; i< hostwork.getScheduledFutureList().size(); i++){
-            String taskcount = String.valueOf( hostwork.getScheduledThreadPoolExecutor().getTaskCount());
-            jTextAreaHost.append("\n Taskcount : " +taskcount);
-            
+        }catch (NullPointerException e1) {           
+            hostwork.getHost().setProcessList();
+          // e1.printStackTrace();             
         }
         
-         } catch (NullPointerException e) {
-             
+        try{
+            jTextAreaHost.append("\n Last time : " +hostwork.getHost().getLastTime().toString());
+        }catch(Exception e){
+            
         }
         
         //hostwork.getTimer().
@@ -528,10 +553,10 @@ public class MJFrame extends javax.swing.JFrame {
 
     private void jButtonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartActionPerformed
         // TODO add your handling code here:
-        Calendar cStart = Calendar.getInstance();    
+       // Calendar cStart = Calendar.getInstance();    
        //Calendar cEnd;               
-        cmdLog.append("开始时间：" + cStart.getTime().toString() + "\n");
-        cmdLog.validate();
+        //cmdLog.append("开始时间：" + cStart.getTime().toString() + "\n");
+        //cmdLog.validate();
         
       try {  
           // host
@@ -545,8 +570,9 @@ public class MJFrame extends javax.swing.JFrame {
                int row = jListHost.getSelectedIndex(); //.getSelectedRow();             
                HostWork nowhostwork = dlmhostworks.get(row); // .get(row); // .getSelectHost(row);
                
-            cmdLog.append(nowhostwork.toString() + "\n");
-            cmdLog.append("设置period参数......\n");
+               
+           // cmdLog.append(nowhostwork.toString() + "\n");
+            //cmdLog.append("设置period参数......\n");
            //nowhostwork.hostRsync();
             
             //set delay and period
@@ -567,6 +593,11 @@ public class MJFrame extends javax.swing.JFrame {
                     
           // run thread
     }//GEN-LAST:event_jButtonStartActionPerformed
+
+    private void jTextAreaHostMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextAreaHostMouseClicked
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_jTextAreaHostMouseClicked
 
     /**
      * @param args the command line arguments

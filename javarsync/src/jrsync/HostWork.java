@@ -9,6 +9,7 @@ package jrsync;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ScheduledFuture;
@@ -26,20 +27,30 @@ public class HostWork implements Serializable{
         private transient JTextArea cmdlog;
         private long timerperiod;
         private long timerdelay;
+        
        // private transient Timer timer = new Timer();
         private transient ScheduledThreadPoolExecutor scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(10);
         private transient ArrayList<ScheduledFuture<?>> scheduledfutureList = new ArrayList<ScheduledFuture<?>>();
         
+       
        private static final long serialVersionUID=-1 ;
         
 
     public HostWork(JTextArea cmdlog) {
         this.cmdlog = cmdlog;
+       // lasttime = this.getLastTime();
+        
     }
-   
+      
+    
     public ScheduledThreadPoolExecutor getScheduledThreadPoolExecutor(){
         return this.scheduledThreadPoolExecutor;
     }
+    
+    public void setScheduledThreadPoolExecutor(int n){
+       this.scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(n);
+    }
+    
     public Timer getTimer(){
         return new Timer(); //timer;
     }
@@ -82,18 +93,41 @@ public class HostWork implements Serializable{
     public ArrayList<ScheduledFuture<?>> getScheduledFutureList(){
         return this.scheduledfutureList;
     }
+    
+    public void setScheduledFutureList(ArrayList<ScheduledFuture<?>> sche){
+        this.scheduledfutureList = sche;
+    }
    
     public void hostRsyncOnce(){
         //RsyncSwingWorker rsw = new RsyncSwingWorker(this.cmdlog, host.getbackupCmdList(),host);
         //rsw.execute();
         //Timer timer  = new Timer();
         //timer.schedule(this, timerdelay);
-        System.out.println("call hostRsyncOnce");
-       ScheduledFuture<?> scheduledfuture = this.scheduledThreadPoolExecutor.schedule(new MyRunnable(host.getbackupCmdList(), host), timerdelay, TimeUnit.MINUTES);
-         this.scheduledfutureList.add(scheduledfuture);
+        //System.out.println("call hostRsyncOnce");
+        ScheduledFuture<?> scheduledfuture = null;       
+       try{
+        scheduledfuture = this.scheduledThreadPoolExecutor.schedule(new MyRunnable(host.getbackupCmdList(), host), timerdelay, TimeUnit.MINUTES);
+        
+       }catch (NullPointerException e){
+           e.printStackTrace();
+           //this.scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(10);           
+           //scheduledfuture = this.scheduledThreadPoolExecutor.schedule(new MyRunnable(host.getbackupCmdList(), host), timerdelay, TimeUnit.MINUTES);
+           
+       }
        
-       // this.scheduledThreadPoolExecutor.
-       //scheduledfuture.
+       try{ 
+            this.scheduledfutureList.add(scheduledfuture);
+       }catch(NullPointerException enull){
+          enull.printStackTrace();
+            // this.scheduledfutureList = new ArrayList<ScheduledFuture<?>>();
+          // this.scheduledfutureList.add(scheduledfuture);
+       }
+      
+      // System.out.println(this.scheduledThreadPoolExecutor.getPoolSize());
+       // System.out.println("\n now runing process : " + this.host.getProcessList().size());
+       // System.out.println("\n now ScheduleFuture :  " + this.getScheduledFutureList().size() );
+       //  String taskcount = String.valueOf(this.getScheduledThreadPoolExecutor().getTaskCount());
+       //   System.out.println("\n Taskcount : " +taskcount);
                 
     }
     
@@ -107,10 +141,12 @@ public class HostWork implements Serializable{
             long minitues = (t2 -t1)/1000/60;
             long hours = (t2 -t1)/(60*60*1000);
             
-            return " seconds: " + seconds +  "(minitues: " + String.valueOf(minitues) + "), (hours: " + String.valueOf(hours) + ")";            
+            return " seconds: " + seconds +  " , (minitues: " + String.valueOf(minitues) + "), (hours: " + String.valueOf(hours) + ")";            
     }
     
     public void ScheduledFutureCacel(){
+        try{
+        this.scheduledThreadPoolExecutor.shutdownNow();
         for(int i=0; i< this.scheduledfutureList.size(); i++){
             this.scheduledfutureList.get(i).cancel(true);
         }
@@ -119,12 +155,36 @@ public class HostWork implements Serializable{
             host.getProcessList().get(i).destroyForcibly();
             
         }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         
     }
     
     public void hostRestore(){
-        RsyncSwingWorker restore = new RsyncSwingWorker(this.cmdlog, host.getrecoverCmdList(), host);
-        restore.execute();
+        //RsyncSwingWorker restore = new RsyncSwingWorker(this.cmdlog, host.getrecoverCmdList(), host);
+        //restore.execute();
+        //stop scheduled task first;
+        this.ScheduledFutureCacel();
+        
+        ScheduledFuture<?> scheduledfuture = null;       
+       try{
+        scheduledfuture = this.scheduledThreadPoolExecutor.schedule(new MyRunnable(host.getrecoverCmdList(), host), timerdelay, TimeUnit.MINUTES);
+        
+       }catch (NullPointerException e){
+           e.printStackTrace();
+           //this.scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(10);           
+           //scheduledfuture = this.scheduledThreadPoolExecutor.schedule(new MyRunnable(host.getbackupCmdList(), host), timerdelay, TimeUnit.MINUTES);
+           
+       }
+       
+       try{ 
+            this.scheduledfutureList.add(scheduledfuture);
+       }catch(NullPointerException enull){
+          enull.printStackTrace();
+            // this.scheduledfutureList = new ArrayList<ScheduledFuture<?>>();
+          // this.scheduledfutureList.add(scheduledfuture);
+       }
     }
 
     @Override
@@ -140,15 +200,30 @@ public class HostWork implements Serializable{
         //MyTimerTask mytimerTask = new MyTimerTask();   
         //Timer timer  = new Timer();
         //timer.schedule(this, this.timerdelay, this.timerperiod); 
-        System.out.println("call hostRsyncRepeat ");
+       // System.out.println("call hostRsyncRepeat ");
+      //   this.setScheduledThreadPoolExecutor();
+         ScheduledFuture<?> scheduledfuture = null;
+        try{
+            scheduledfuture =
+               this.scheduledThreadPoolExecutor.scheduleWithFixedDelay(new MyRunnable(this.host.getbackupCmdList(), host), timerdelay, this.timerperiod, TimeUnit.MINUTES); 
+            
+       }catch (NullPointerException e){
+           e.printStackTrace();
+          // this.scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(10);
+          // scheduledfuture =
+           //    this.scheduledThreadPoolExecutor.scheduleWithFixedDelay(new MyRunnable(this.host.getbackupCmdList(), host), timerdelay, this.timerperiod, TimeUnit.MINUTES); 
+       }
+           try {
+               this.scheduledfutureList.add(scheduledfuture);           
+           }catch(NullPointerException enull){
+               enull.printStackTrace();
+              // this.scheduledfutureList = new ArrayList<ScheduledFuture<?>>();
+               //this.scheduledfutureList.add(scheduledfuture);
+           }
+       }
         
-       ScheduledFuture<?> scheduledfuture =
-               this.scheduledThreadPoolExecutor.scheduleWithFixedDelay(new MyRunnable(this.host.getbackupCmdList(), host), timerdelay, this.timerperiod, TimeUnit.MINUTES);
-       
-      this.scheduledfutureList.add(scheduledfuture);
         
-    }
-
+   
    
     
 }

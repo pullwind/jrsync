@@ -3,6 +3,8 @@ package jrsync;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -31,11 +33,25 @@ public class Host implements Serializable{
     
    private transient ArrayList<Process> processList = new ArrayList<Process>();
    
+   private static final long serialVersionUID=-1 ;
+   private Date lasttime;
+    
+   public Date getLastTime(){
+       
+        return this.lasttime;
+    }
+   
+    public void setLastTime(){
+        this.lasttime = Calendar.getInstance().getTime();
+    }
    
     public ArrayList<Process> getProcessList() {
         return processList;
     }
-
+    public void setProcessList(){
+        processList = new ArrayList<Process>();
+    }
+    
     public void addProcesstoList(Process process) {
        // this.process = process;
         this.processList.add(process);

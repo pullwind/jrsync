@@ -49,6 +49,7 @@ public class MyRunnable implements Runnable{
           //  File log = new File("log.txt");
           //  pb.redirectOutput(ProcessBuilder.Redirect.appendTo(log));
             Process p =  pb.start();
+            
             // set host process
             host.addProcesstoList(p);
             //host.setProcess(p);
@@ -73,7 +74,8 @@ public class MyRunnable implements Runnable{
             String useTime =HostWork.caculateTime(tStart);
             System.out.println("Task done :" + useTime);
             
-           
+            host.setLastTime(); //update lasttime of rsync
+           System.out.println("Lastcomplete time of rsync: " + host.getLastTime().toString());
            // p.
           // assert pb.redirectInput() == Redirect.PIPE;
           //  assert pb.redirectOutput().file() == log;

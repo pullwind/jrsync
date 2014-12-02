@@ -26,20 +26,20 @@
             <Property name="text" type="java.lang.String" value="Restore"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="recover">
+            <MenuItem class="javax.swing.JMenuItem" name="restore">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Restore"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="recoverActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="restoreActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="Stoprecover">
+            <MenuItem class="javax.swing.JMenuItem" name="Stoprestore">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Stop"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="StoprecoverActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="StoprestoreActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

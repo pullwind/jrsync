@@ -147,6 +147,7 @@ public class HostWork implements Serializable{
     public void ScheduledFutureCacel(){
         try{
         this.scheduledThreadPoolExecutor.shutdownNow();
+        
         for(int i=0; i< this.scheduledfutureList.size(); i++){
             this.scheduledfutureList.get(i).cancel(true);
         }

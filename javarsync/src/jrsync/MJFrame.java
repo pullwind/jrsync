@@ -98,8 +98,8 @@ public class MJFrame extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        recover = new javax.swing.JMenuItem();
-        Stoprecover = new javax.swing.JMenuItem();
+        restore = new javax.swing.JMenuItem();
+        Stoprestore = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         mHelp = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -275,21 +275,21 @@ public class MJFrame extends javax.swing.JFrame {
 
         jMenu4.setText("Restore");
 
-        recover.setText("Restore");
-        recover.addActionListener(new java.awt.event.ActionListener() {
+        restore.setText("Restore");
+        restore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                recoverActionPerformed(evt);
+                restoreActionPerformed(evt);
             }
         });
-        jMenu4.add(recover);
+        jMenu4.add(restore);
 
-        Stoprecover.setText("Stop");
-        Stoprecover.addActionListener(new java.awt.event.ActionListener() {
+        Stoprestore.setText("Stop");
+        Stoprestore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                StoprecoverActionPerformed(evt);
+                StoprestoreActionPerformed(evt);
             }
         });
-        jMenu4.add(Stoprecover);
+        jMenu4.add(Stoprestore);
 
         jMenuBar1.add(jMenu4);
 
@@ -430,12 +430,9 @@ public class MJFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_mHelpActionPerformed
 
-    private void recoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recoverActionPerformed
+    private void restoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restoreActionPerformed
         // TODO add your handling code here:
-         Calendar cStart = Calendar.getInstance();    
-       //Calendar cEnd;               
-         cmdLog.append("开始时间：" + cStart.getTime().toString() + "\n");
-        cmdLog.validate();
+       
         
       try {  
          
@@ -444,42 +441,24 @@ public class MJFrame extends javax.swing.JFrame {
              
           }
           else{
-              
-             int re =  JOptionPane.showConfirmDialog(rootPane, "Please confirm that the selections are correct before restore", "restore", JOptionPane.YES_NO_OPTION);
-              
-             if(re ==0){
-                 
-             }else if(re ==1){
-                 throw new Exception("no");
-             }
-              
-               int row = jListHost.getSelectedIndex();
-               HostWork nowhostwork = this.dlmhostworks.get(row); //getSelectHost(row);
-                         
             
-            cmdLog.append(nowhostwork.getHost().getrecoverCmdString() + "\n");
-            cmdLog.append("开始执行 线程......\n");
-            nowhostwork.hostRestore();
+            
+            HostWorkRestore hwr = new HostWorkRestore(this.dlmhostworks.get(this.jListHost.getSelectedIndex()));
+            hwr.setEnabled(rootPaneCheckingEnabled);
             
           }
       }catch(Exception e) {
             rsyncLog.append(e.toString());
         }
       
-    }//GEN-LAST:event_recoverActionPerformed
+    }//GEN-LAST:event_restoreActionPerformed
 
-    private void StoprecoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StoprecoverActionPerformed
+    private void StoprestoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StoprestoreActionPerformed
         // TODO add your handling code here:
         //mytablemodel.getSelectHost(jTable1.getSelectedRow()).getHostProcess().destroyForcibly();
-         ArrayList<Process> processList =((HostWork)jListHost.getSelectedValue()).getHost().getProcessList();
-        for(int i=0; i< processList.size(); i++){
-           // process.destroyForcibly();
-            processList.get(i).destroyForcibly();
-           // cmdLog.append("停止进程" + process.toString());
-            cmdLog.append("停止进程:   " + processList.get(i).toString());
-        }
+       this.dlmhostworks.get(this.jListHost.getSelectedIndex()).ScheduledFutureCacel();
       
-    }//GEN-LAST:event_StoprecoverActionPerformed
+    }//GEN-LAST:event_StoprestoreActionPerformed
 
     private void jListHostMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListHostMouseClicked
         // TODO add your handling code here:
@@ -682,7 +661,7 @@ public class MJFrame extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Save;
-    private javax.swing.JMenuItem Stoprecover;
+    private javax.swing.JMenuItem Stoprestore;
     private javax.swing.JTextArea cmdLog;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -706,7 +685,7 @@ public class MJFrame extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JTextArea jTextAreaHost;
     private javax.swing.JMenuItem mHelp;
-    private javax.swing.JMenuItem recover;
+    private javax.swing.JMenuItem restore;
     private javax.swing.JTextArea rsyncLog;
     // End of variables declaration//GEN-END:variables
 }

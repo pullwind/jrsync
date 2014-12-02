@@ -18,7 +18,7 @@ import java.util.Calendar;
 public class MyRunnable implements Runnable{
     private ArrayList<String> cmdlist;
     private Calendar tStart;
-    private Calendar tEnd;
+   // private Calendar tEnd;
     private Host host;
 
     public MyRunnable(ArrayList<String> cmdlist, Host host) {
@@ -40,6 +40,8 @@ public class MyRunnable implements Runnable{
              for(int i=0; i< this.cmdlist.size(); i++){
                  s+= ( this.cmdlist.get(i) + " ");
              }
+             System.out.println("Begin time :" +Calendar.getInstance().getTime().toString());
+             
              System.out.println("Create PorcessBuilder from : " + s );
              //之前用的
           // pb.redirectError(Redirect.INHERIT);
@@ -48,8 +50,9 @@ public class MyRunnable implements Runnable{
             //pbProc.re
           //  File log = new File("log.txt");
           //  pb.redirectOutput(ProcessBuilder.Redirect.appendTo(log));
-            Process p =  pb.start();
-            
+            //Process p =  pb.start();
+             Process p = pb.start();
+            //p.
             // set host process
             host.addProcesstoList(p);
             //host.setProcess(p);
@@ -72,10 +75,11 @@ public class MyRunnable implements Runnable{
             
             host.getProcessList().remove(p);
             String useTime =HostWork.caculateTime(tStart);
-            System.out.println("Task done :" + useTime);
-            
+                   
             host.setLastTime(); //update lasttime of rsync
-           System.out.println("Lastcomplete time of rsync: " + host.getLastTime().toString());
+            System.out.println("finish time :" +Calendar.getInstance().getTime().toString());
+             System.out.println("Task done :" + useTime);    
+          // System.out.println("Lastcomplete time of rsync: " + host.getLastTime().toString());
            // p.
           // assert pb.redirectInput() == Redirect.PIPE;
           //  assert pb.redirectOutput().file() == log;

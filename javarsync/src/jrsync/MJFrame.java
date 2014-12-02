@@ -348,6 +348,11 @@ public class MJFrame extends javax.swing.JFrame {
                 
        // ArrayList<Process> processList =((HostWork)jListHost.getSelectedValue()).getHost().getProcessList();
         ((HostWork)jListHost.getSelectedValue()).ScheduledFutureCacel();
+        ((HostWork)jListHost.getSelectedValue()).setScheduledThreadPoolExecutor(10);
+       // ArrayList<ScheduledFuture<?>> scheduledfutureList = new ArrayList<ScheduledFuture<?>>();
+         //   hostwork.setScheduledFutureList(scheduledfutureList); 
+       // ((HostWork)jListHost.getSelectedValue()).setScheduledFutureList(scheduledfutureList);
+       
         /*
         for(int i=0; i< processList.size(); i++){
            // process.destroyForcibly();
@@ -418,8 +423,12 @@ public class MJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_SaveActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-        System.exit(WIDTH);
+        
+        for(int i=0; i< this.dlmhostworks.size(); i++){
+            this.dlmhostworks.get(i).ScheduledFutureCacel();
+        }
+       
+        System.exit(0);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void mHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mHelpActionPerformed
@@ -441,10 +450,16 @@ public class MJFrame extends javax.swing.JFrame {
              
           }
           else{
-            
+            // int re =  JOptionPane.showConfirmDialog(rootPane, "Please confirm that the selections are correct before restore", "restore", JOptionPane.YES_NO_OPTION);
+              
+            // if(re ==0){
+                 
+            // }else if(re ==1){
+             //    throw new Exception("no");
+             //}
             
             HostWorkRestore hwr = new HostWorkRestore(this.dlmhostworks.get(this.jListHost.getSelectedIndex()));
-            hwr.setEnabled(rootPaneCheckingEnabled);
+            hwr.setVisible(rootPaneCheckingEnabled);
             
           }
       }catch(Exception e) {

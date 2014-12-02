@@ -146,14 +146,15 @@ public class HostWork implements Serializable{
     
     public void ScheduledFutureCacel(){
         try{
-        this.scheduledThreadPoolExecutor.shutdownNow();
-        
-        for(int i=0; i< this.scheduledfutureList.size(); i++){
-            this.scheduledfutureList.get(i).cancel(true);
-        }
-        
-        for(int i=0; i < host.getProcessList().size(); i++){
+            for(int i=0; i < host.getProcessList().size(); i++){
             host.getProcessList().get(i).destroyForcibly();
+            
+             for(int j=0; j< this.scheduledfutureList.size(); j++){
+            this.scheduledfutureList.get(j).cancel(true);
+            }
+             
+            this.scheduledThreadPoolExecutor.shutdownNow();
+        
             
         }
         }catch(Exception e){
@@ -166,7 +167,11 @@ public class HostWork implements Serializable{
         //RsyncSwingWorker restore = new RsyncSwingWorker(this.cmdlog, host.getrecoverCmdList(), host);
         //restore.execute();
         //stop scheduled task first;
+        
         this.ScheduledFutureCacel();
+        
+        this.scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(10);
+        
         
         ScheduledFuture<?> scheduledfuture = null;       
        try{

@@ -6,30 +6,31 @@
 
 package jrsync;
 
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JTextArea;
+
 /**
  *
  * @author Administrator
  */
-public class AddHost extends javax.swing.JFrame {
-    private String rhostnameString;
-    private String rhostUserString;    
-    private String rhostdirString;
+public class AddHostWork extends javax.swing.JFrame {
     
-    private String rhostAllString;
-    
-    private String lhostDirString;    
-    private String rsyncCmdString;
-  
-    private Host hostnow;
+    private HostWork hostwork; // = new HostWork();
+    String rsyncCmdString;
+    //private ArrayList<HostWork> hostworks;
+    private DefaultListModel<HostWork> dlmhw;
     
     /**
      * Creates new form AddHost
      */
-    public AddHost() {
-        initComponents();
-       
+    public AddHostWork(DefaultListModel<HostWork> dlmhw, HostWork hostwork) {
+        
+        initComponents();       
+        this.dlmhw = dlmhw;       
+        this.hostwork = hostwork;
         rsyncCmdString = jTrsyncCmd.getText();
-       hostnow = new Host();
+        
     }
 
     /**
@@ -101,7 +102,7 @@ public class AddHost extends javax.swing.JFrame {
         });
 
         jLabel9.setForeground(java.awt.Color.blue);
-        jLabel9.setText("远程目录和本地目录，需要以/结束，比如/home/ ，表示备份子目录，便于还原作业。");
+        jLabel9.setText("remote directory and local directory，need to end up with /,such as /home/,it means back-up subdirtectory,in order to restore job.");
         jLabel9.setFocusable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -176,6 +177,7 @@ public class AddHost extends javax.swing.JFrame {
 
         jLabel3.setText("rsync command:");
 
+        jTBackupCmd.setEditable(false);
         jTBackupCmd.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTBackupCmdFocusGained(evt);
@@ -189,6 +191,7 @@ public class AddHost extends javax.swing.JFrame {
 
         jLabel4.setText("restore command:");
 
+        jTrecoverCmd.setEditable(false);
         jTrecoverCmd.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTrecoverCmdFocusGained(evt);
@@ -235,7 +238,7 @@ public class AddHost extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jTrsyncCmd, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jTBackupCmd, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+                    .addComponent(jTBackupCmd)
                     .addComponent(jTrecoverCmd))
                 .addGap(18, 18, 18))
         );
@@ -265,7 +268,7 @@ public class AddHost extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("宋体", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel8.setText("添加完毕之后，请在主窗口点击保存以保存修改。");
+        jLabel8.setText("after add,click the Save button of the main window to save the changes.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -308,22 +311,24 @@ public class AddHost extends javax.swing.JFrame {
     }//GEN-LAST:event_jTremoteHostInputMethodTextChanged
 
     private void jTremoteHostCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTremoteHostCaretUpdate
-       rhostnameString = jTremoteHost.getText();
-     
+        String rhostnameString = jTremoteHost.getText();
+        hostwork.getHost().setrhost(rhostnameString);
     }//GEN-LAST:event_jTremoteHostCaretUpdate
 
     private void jTlocalDirCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTlocalDirCaretUpdate
-       lhostDirString = jTlocalDir.getText();
+       String lhostDirString = jTlocalDir.getText();
+       hostwork.getHost().setlhostDir(lhostDirString);
       
     }//GEN-LAST:event_jTlocalDirCaretUpdate
 
     private void jTuserNameCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTuserNameCaretUpdate
-        rhostUserString = jTuserName.getText();
-        
+       String rhostUserString = jTuserName.getText();
+        hostwork.getHost().setrhostUser(rhostUserString);
     }//GEN-LAST:event_jTuserNameCaretUpdate
 
     private void jTremoteDirCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTremoteDirCaretUpdate
-        rhostdirString = jTremoteDir.getText();
+        String rhostdirString = jTremoteDir.getText();
+        hostwork.getHost().setrhostDir(rhostdirString);
         
     }//GEN-LAST:event_jTremoteDirCaretUpdate
 
@@ -350,8 +355,9 @@ public class AddHost extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
         updateHost();
-        MJFrame.addNewHost(hostnow);
-        
+        //MJFrame.addNewHost(hostnow);
+        this.dlmhw.addElement(hostwork);        
+        //this.dlmhw.add(hostwork);
         this.dispose();
         //MJFrame.update();        
        // hostnow = new Host();
@@ -376,53 +382,21 @@ public class AddHost extends javax.swing.JFrame {
     
     public void updateHost(){
         
-          hostnow.setrhostUser(rhostUserString);
-          hostnow.setrhost(rhostnameString);
-          hostnow.setrhostDir(rhostdirString);
-          hostnow.setlhostDir(lhostDirString);
-          hostnow.setrsyncCmd(rsyncCmdString);
+          //hostwork.getHost().setrhostUser(rhostUserString);
+          //hostwork.getHost().setrhost(rhostnameString);
+         // hostwork.getHost().setrhostDir(rhostdirString);
+          //hostwork.getHost().setlhostDir(lhostDirString);
+          hostwork.getHost().setrsyncCmd(rsyncCmdString);
           
-          hostnow.updatetheHost();
+          hostwork.getHost().upDateHost(); //.updatetheHost();
           
-          jTBackupCmd.setText(hostnow.getbackupCmd());
-          jTrecoverCmd.setText(hostnow.getrecoverCmd());
+          jTBackupCmd.setText(hostwork.getHost().getbackupCmdString()); //w.getbackupCmd());
+          jTrecoverCmd.setText(hostwork.getHost().getrecoverCmdString());
+            //hostnow.getrecoverCmd());
           
        }
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddHost.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddHost.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddHost.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddHost.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AddHost().setVisible(true);
-            }
-        });
-    }
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

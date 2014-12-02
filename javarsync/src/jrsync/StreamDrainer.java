@@ -43,7 +43,7 @@ public class StreamDrainer implements Runnable{
             }
             //close inputstream
             is.close();
-            System.out.println(Thread.currentThread().getName() + " is terminate.");
+           // System.out.println(Thread.currentThread().getName() + " stream is terminate.");
             
         } catch (IOException ex) {
             Logger.getLogger(StreamDrainer.class.getName()).log(Level.SEVERE, null, ex);

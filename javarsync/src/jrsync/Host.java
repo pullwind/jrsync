@@ -3,6 +3,8 @@ package jrsync;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,7 +16,7 @@ import java.util.ArrayList;
  *
  * @author Administrator
  */
-public class Host implements  Serializable{
+public class Host implements Serializable{
     private  ArrayList<String> backupCmdList = new ArrayList<String>();
     private ArrayList<String> recoverCmdList = new ArrayList<String>();
     
@@ -26,71 +28,36 @@ public class Host implements  Serializable{
     private String lhostDir;    
     private String rsyncCmd;
     
-    private String backupCmd;
-    private String recoverCmd;
+    private String backupCmdString;
+    private String recoverCmdString;   
     
-    private ArrayList<String> fixedCmdList = new ArrayList<String>();
+   private transient ArrayList<Process> processList = new ArrayList<Process>();
+   
+   private static final long serialVersionUID=-1 ;
+   private Date lasttime;
     
-    static public  int column = 5; //column
-   // static public int column = fixedCmdList.size();
-    
-        private RsyncSwingWorker hostRsyncSwingWorker = null;
-
-    /**
-     * Get the value of hostRsyncSwingWorker
-     *
-     * @return the value of hostRsyncSwingWorker
-     */
-    public RsyncSwingWorker getHostRsyncSwingWorker() {
-        return hostRsyncSwingWorker;
+   public Date getLastTime(){
+       
+        return this.lasttime;
     }
-
-    /**
-     * Set the value of hostRsyncSwingWorker
-     *
-     * @param hostRsyncSwingWorker new value of hostRsyncSwingWorker
-     */
-    public void setHostRsyncSwingWorker(RsyncSwingWorker hostRsyncSwingWorker) {
-        this.hostRsyncSwingWorker = hostRsyncSwingWorker;
+   
+    public void setLastTime(){
+        this.lasttime = Calendar.getInstance().getTime();
     }
-
-    private Process hostProcess = null;
-
-    /**
-     * Get the value of hostProcess
-     *
-     * @return the value of hostProcess
-     */
-    public Process getHostProcess() {
-        return hostProcess;
+   
+    public ArrayList<Process> getProcessList() {
+        return processList;
     }
-
-    /**
-     * Set the value of hostProcess
-     *
-     * @param hostProcess new value of hostProcess
-     */
-    public void setHostProcess(Process hostProcess) {
-        this.hostProcess = hostProcess;
-    }
-
-    
-    public void setfixedCmdList(){
-      //  fixedCmdList.clear();
-    fixedCmdList.add(rsyncCmd);
-    fixedCmdList.add(rhostAll);
-    fixedCmdList.add(lhostDir);
-    fixedCmdList.add(backupCmd);
-    fixedCmdList.add(recoverCmd);
-    //fixedCmdList.add(getHostRsyncSwingWorker().toString());
-    //fixedCmdList.add(getHostProcess().toString());
-    
+    public void setProcessList(){
+        processList = new ArrayList<Process>();
     }
     
-    public ArrayList<String>  getfixedCmdList(){
-      
-    return fixedCmdList;
-}
+    public void addProcesstoList(Process process) {
+       // this.process = process;
+        this.processList.add(process);
+        
+    }
+
     
     public void  setrhostUser(String rhostUserName){
         rhostUser = rhostUserName;
@@ -133,13 +100,14 @@ public class Host implements  Serializable{
         recoverCmdList.add(rhostAll);
     }
     public ArrayList<String> getrecoverCmdList(){
-        //setfixedCmdList();      
+        //setfixedCmdList();     
         
         return recoverCmdList;
     }
     
     public void setbackupCmdList(){
-        backupCmdList.clear();
+        backupCmdList.clear(); //clear old first
+        
         String[] rsync = rsyncCmd.split(" ");
         for(String rstr:rsync){
             backupCmdList.add(rstr);
@@ -173,58 +141,50 @@ public class Host implements  Serializable{
     }
     
  
-    public void setbackupCmd(){
-         backupCmdList = this.getbackupCmdList();
+    public void setbackupCmdString(){
+        // backupCmdList = this.getbackupCmdList();
        //String str =null;
-        backupCmd ="";
+        backupCmdString ="";
        // backupCmd = backupCmdList.get(0) + " ";
         
        for(int i=0; i< backupCmdList.size(); i++){
-           backupCmd += backupCmdList.get(i);
-           backupCmd += " ";
+           backupCmdString += backupCmdList.get(i);
+           backupCmdString += " ";
            
           
        }
     }
     
-    public String getbackupCmd(){
+    public String getbackupCmdString(){
         
        
-        return backupCmd;
+        return backupCmdString;
     }
     
-    public void setrecoverCmd(){
+    public void setrecoverCmdString(){
         // recoverCmd = null;
-        recoverCmdList = this.getrecoverCmdList();
-        recoverCmd = ""; // recoverCmdList.get(0)+"";
+        //recoverCmdList = this.getrecoverCmdList();
+        recoverCmdString = ""; // recoverCmdList.get(0)+"";
         //String s = null;
         
         for(int i=0; i< recoverCmdList.size(); i++){
-            recoverCmd += recoverCmdList.get(i);
-            recoverCmd += " ";
+            recoverCmdString += recoverCmdList.get(i);
+            recoverCmdString += " ";
             
         }
     }
     
-    public String getrecoverCmd(){
+    public String getrecoverCmdString(){
        
-        return recoverCmd;
+        return recoverCmdString;
     }    
 
-    public void updatetheHost(){
-        // create other values
+    public void upDateHost(){
         setbackupCmdList();
+        setbackupCmdString();
         setrecoverCmdList();
-        setbackupCmd();
-        setrecoverCmd();
-        setfixedCmdList();
+        setrecoverCmdString();
         
     }
-
-    public void Host() {
-        //String str =JOptionPane.showInputDialog(this, "rsync -a --delete root@192.168.0.250:/home /data1/250", "add", JOptionPane.WARNING_MESSAGE);
-         
-    }
-    
     
 }

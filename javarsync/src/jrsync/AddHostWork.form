@@ -162,7 +162,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="0" id="blue" palette="1" red="0" type="palette"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="&#x8fdc;&#x7a0b;&#x76ee;&#x5f55;&#x548c;&#x672c;&#x5730;&#x76ee;&#x5f55;&#xff0c;&#x9700;&#x8981;&#x4ee5;/&#x7ed3;&#x675f;&#xff0c;&#x6bd4;&#x5982;/home/ &#xff0c;&#x8868;&#x793a;&#x5907;&#x4efd;&#x5b50;&#x76ee;&#x5f55;&#xff0c;&#x4fbf;&#x4e8e;&#x8fd8;&#x539f;&#x4f5c;&#x4e1a;&#x3002;"/>
+            <Property name="text" type="java.lang.String" value="remote directory and local directory&#xff0c;need to end up with /,such as /home/,it means back-up subdirtectory,in order to restore job."/>
             <Property name="focusable" type="boolean" value="false"/>
           </Properties>
         </Component>
@@ -247,7 +247,7 @@
                           <Component id="jTrsyncCmd" min="-2" pref="314" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="jTBackupCmd" pref="472" max="32767" attributes="0"/>
+                      <Component id="jTBackupCmd" max="32767" attributes="0"/>
                       <Component id="jTrecoverCmd" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
@@ -283,6 +283,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTBackupCmd">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTBackupCmdFocusGained"/>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTBackupCmdMouseClicked"/>
@@ -294,6 +297,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTrecoverCmd">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTrecoverCmdFocusGained"/>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTrecoverCmdMouseClicked"/>
@@ -333,7 +339,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="0" red="0" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="&#x6dfb;&#x52a0;&#x5b8c;&#x6bd5;&#x4e4b;&#x540e;&#xff0c;&#x8bf7;&#x5728;&#x4e3b;&#x7a97;&#x53e3;&#x70b9;&#x51fb;&#x4fdd;&#x5b58;&#x4ee5;&#x4fdd;&#x5b58;&#x4fee;&#x6539;&#x3002;"/>
+        <Property name="text" type="java.lang.String" value="after add,click the Save button of the main window to save the changes."/>
       </Properties>
     </Component>
   </SubComponents>

@@ -17,13 +17,19 @@ import java.util.logging.Logger;
  * @author Administrator
  */
 public class WFile {
-    
+    String filename;
     ObjectOutputStream outputStream;
+
+    public WFile(String filename) {
+        this.filename = filename;
+    }
+    
+    
     
     public void openFile(){
         
         try {
-            outputStream = new ObjectOutputStream(new FileOutputStream("host.txt"));
+            outputStream = new ObjectOutputStream(new FileOutputStream(filename));
         } catch (IOException ex) {
             Logger.getLogger(WFile.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -34,6 +40,7 @@ public class WFile {
     public void WtoFile(Object o){
         try {
             outputStream.writeObject(o);
+            
         } catch (IOException ex) {
             Logger.getLogger(WFile.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -43,6 +50,7 @@ public class WFile {
         
         if(outputStream != null){
             try {
+                //outputStream.
                 outputStream.close();
             } catch (IOException ex) {
                 Logger.getLogger(WFile.class.getName()).log(Level.SEVERE, null, ex);

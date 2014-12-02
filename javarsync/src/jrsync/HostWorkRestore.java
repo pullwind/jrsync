@@ -21,6 +21,7 @@ public class HostWorkRestore extends javax.swing.JFrame {
         this.hostwork = hostwork;
         //jTextFieldDelay.setText(String.valueOf(this.hostwork.gettimerdelay()));
         //jTextFieldPeriod.setText(String.valueOf(this.hostwork.gettimerperiod()));
+        jTextFieldDelay.setText(String.valueOf(this.hostwork.gettimerdelay()));
         Host host = this.hostwork.getHost();
         jTextArea1.setText(" ");
         jTextArea1.append("\n username:  " + host.getrhostUser());

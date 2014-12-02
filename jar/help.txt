@@ -1,0 +1,86 @@
+
+##########################################
+需要安装java运行环境， 以ubuntu系统为例。
+ubuntu:
+
+1. install java jdk8 on ubuntu.
+
+https://www.liberiangeek.net/2012/09/install-oracle-java-8-jdk-jre-in-ubuntu-12-04/
+
+在terminal终端窗口中，输入下面2行命令
+
+sudo add-apt-repository ppa:webupd8team/java
+
+sudo apt-get update && sudo apt-get install oracle-java8-installer
+
+验证java是否已经安装，运行下面命令: 
+To verify if Java is installed, run the commands below.
+ 
+java –version
+ 
+##################################################
+运行程序：
+	java -jar javarsync.jar   (或者 ./javarsync.jar)
+
+设置需要备份的主机目录，参见图片00addhost.png .
+在添加HOST之后，记得点击"save to file"按钮。
+
+开始备份：
+	参见图片 01rsync.png。
+
+停止备份：
+	在Host列表中选择主机，然后点击"Stop Rsync"。
+
+
+还原：
+	先选择主机，点击"Stop Rsync"中止之前可能提交的备份任务。 
+	选择菜单"Restore" >> "Restore".
+	在弹出的窗口中，验证是否是要还原的主机，
+	点击Resotre按钮开始还原作业。
+
+
+##################################################
+设置ssh登入无需密码验证。
+如果不做此项设置，那么在备份时需要手动在terminal窗口输入ssh登入目标主机的密码，参见图片04needpassword.png.
+
+在备份主机：
+	在备份主机上的terminal窗口中，执行命令
+ssh-keygen
+	然后进入用户的 .ssh目录，执行命令 
+	scp id_rsa.pub root@192.168.0.66:/root/.ssh/id_rsa.pub.1
+	会提示你输入192.168.0.66系统的root账号的密码。
+
+在目标主机：
+	现在用其他终端连接上192.168.0.66。
+	进入root账号目录下的.ssh目录。执行：
+	cat id_rsa_pub.1 >>authorized_keys
+	注意authorized_keys的权限，可能需要改为600 (chmod 600 au...)
+
+
+现在在备份主机上， 测试用 ssh root@192.168.0.66， 是否还需要输入密码。
+
+
+##################################################
+以下是安装samba共享（供参考）
+sudo apt-get install samba
+
+smbpasswd -a it  (it is curren login user)
+
+sudo vi /etc/samba/smb.conf
+
+
+##########################################
+以下是安装vnc远程桌面（供参考）
+setup vnc on ubuntu.
+
+sudo apt-get install tightvncserver
+
+运行vnc server， 输入命令
+vncserver   
+输入密码：
+现在在其他电脑上，可以用vnc client端连接到vnc server。
+
+
+
+#########################################
+

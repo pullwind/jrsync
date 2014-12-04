@@ -1,5 +1,6 @@
 
 ##########################################
+
 需要安装java运行环境， 以ubuntu系统为例。
 ubuntu:
 
@@ -14,11 +15,11 @@ sudo add-apt-repository ppa:webupd8team/java
 sudo apt-get update && sudo apt-get install oracle-java8-installer
 
 验证java是否已经安装，运行下面命令: 
-To verify if Java is installed, run the commands below.
- 
+To verify if Java is installed, run the commands below. 
 java –version
  
 ##################################################
+
 运行程序：
 	java -jar javarsync.jar   (或者 ./javarsync.jar)
 
@@ -40,6 +41,7 @@ java –version
 
 
 ##################################################
+
 设置ssh登入无需密码验证。
 如果不做此项设置，那么在备份时需要手动在terminal窗口输入ssh登入目标主机的密码，参见图片04needpassword.png.
 
@@ -61,6 +63,7 @@ ssh-keygen
 
 
 ##################################################
+
 以下是安装samba共享（供参考）
 sudo apt-get install samba
 
@@ -70,6 +73,7 @@ sudo vi /etc/samba/smb.conf
 
 
 ##########################################
+
 以下是安装vnc远程桌面（供参考）
 setup vnc on ubuntu.
 

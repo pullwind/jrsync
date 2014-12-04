@@ -1,20 +1,23 @@
 jrsync
 ======
 gui rsync ,
-sample call rsync command .
+基于JAVA的GUI界面，调用rsync命令。
 
+使用方法， 下载jar目录下的文件，
+安装和运行参考help.txt文件。
 
-you can download the jrsync-jar to you pc, 
-
-1. need install the java jdk7 or later.
-2. need config the ssh. (or enter password when rsync)
-  on bakcup  pc, terminal:
-  ssh-keygen
-  cd ~/.ssh
-  scp id_rsa.pub root@192.168.0.100:/root/.ssh/id_rsa.pub.1  (which 0.100 is the target server)
-  
-  on target server :
- cat id_rsa.pub.1 >> authorized_keys
+1. 需要jre运行环境。
+2. 需要配置 ssh无密码登入。
  
- now on the backup pc,  ssh root@192.168.0.100 can login with passwordless.
  
+JAVA-based GUI interface, invoke rsync command.
+
+
+To use, download the jar file under the jar directory,
+
+Installation and setup please refer the help.txt file.
+
+
+1. Need JRE runtime environment.
+
+2. Need to configure SSH passwordless login.

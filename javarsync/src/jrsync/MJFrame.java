@@ -40,7 +40,7 @@ import sun.security.krb5.Confounder;
 public class MJFrame extends javax.swing.JFrame {
     
     //private ArrayList<HostWork> hostworks = new ArrayList<HostWork>();
-    DefaultListModel<HostWork> dlmhostworks = new DefaultListModel<HostWork>();
+    DefaultListModel<HostWork> dlmhostworks; // = new DefaultListModel<HostWork>();
    
     
     /**
@@ -53,6 +53,8 @@ public class MJFrame extends javax.swing.JFrame {
             ps = new PrintStream(myout,rootPaneCheckingEnabled);
             //ps = new PrintStream(myout, true);
             System.setOut(ps); 
+            
+            dlmhostworks = new DefaultListModel<HostWork>();
             
         try {
             
@@ -371,7 +373,7 @@ public class MJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonStopActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        HostWork hostwork = new HostWork(cmdLog);
+        HostWork hostwork = new HostWork();
         AddHostWork addhost = new AddHostWork(this.dlmhostworks, hostwork);
         addhost.setVisible(rootPaneCheckingEnabled);
        
@@ -405,7 +407,12 @@ public class MJFrame extends javax.swing.JFrame {
         //ArrayList<HostWork> arraylisthw = (ArrayList<HostWork>)rfile.readFile();
         try {
              DefaultListModel<HostWork> dlm = (DefaultListModel<HostWork>)rfile.readFile();
-        this.dlmhostworks = dlm;
+            for(int i=0; i< dlm.getSize(); i++){
+                this.dlmhostworks.addElement(dlm.elementAt(i));
+                this.dlmhostworks.get(i).setupHostWork(); //init hostwork
+            }
+             
+            //this.dlmhostworks = dlm;
         } catch (Exception e) {
         }
        

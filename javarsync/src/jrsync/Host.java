@@ -42,6 +42,10 @@ public class Host implements Serializable{
        recoverCmdList = new ArrayList<String>();
     }
     
+    public void setupHost(){
+       processList = new ArrayList<Process>(); 
+      
+    }
    
    public Date getLastTime(){
        

@@ -36,18 +36,33 @@ public class StreamDrainer implements Runnable{
              BufferedReader br = new BufferedReader(new InputStreamReader(is));
             String line =null;
             while(p.isAlive()){
-            
-                while((line = br.readLine()) != null ){
+                
+                try{
+                     while((line = br.readLine()) != null ){
                     System.out.println(line);
+                    }
+                }catch(IOException io){
+                   
+                }finally{
+                    try {
+                        is.close();
+                         } catch (IOException ex) {
+                        Logger.getLogger(StreamDrainer.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-            }
-            //close inputstream
-            is.close();
-           // System.out.println(Thread.currentThread().getName() + " stream is terminate.");
             
-        } catch (IOException ex) {
-            Logger.getLogger(StreamDrainer.class.getName()).log(Level.SEVERE, null, ex);
-        }
+                
+            }
+           
+         
+        }finally{
+            try {
+                is.close();
+            } catch (IOException ex) {
+                Logger.getLogger(StreamDrainer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            }
+        
         
     }
     

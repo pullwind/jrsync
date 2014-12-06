@@ -22,29 +22,29 @@ import javax.swing.JTextArea;
  * @author Administrator
  */
 public class HostWork implements Serializable{
-       
-        private Host host = new Host();
-        private transient JTextArea cmdlog;
+        private Host host = new Host();   
         private long timerperiod;
         private long timerdelay;
         
-       // private transient Timer timer = new Timer();
         private transient ScheduledThreadPoolExecutor scheduledThreadPoolExecutor;
         private transient ArrayList<ScheduledFuture<String>> scheduledfutureList;
         private transient ScheduledFuture<String> scheduledfuture;
-        
-       
+         
        private static final long serialVersionUID=-1 ;
-        
-
-    public HostWork(JTextArea cmdlog) {
-        this.cmdlog = cmdlog;
+     
+    public HostWork() {
        // lasttime = this.getLastTime();
         scheduledfutureList = new ArrayList<ScheduledFuture<String>>();
         scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(10);
         scheduledfuture = null;
     }   
       
+    public void setupHostWork(){
+        scheduledfutureList = new ArrayList<ScheduledFuture<String>>();
+        scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(10);
+        scheduledfuture = null;
+        host.setupHost();
+    }
     
     public ScheduledThreadPoolExecutor getScheduledThreadPoolExecutor(){
         return this.scheduledThreadPoolExecutor;
@@ -144,6 +144,8 @@ public class HostWork implements Serializable{
                 }
         }catch(NullPointerException nullpoint){
             nullpoint.printStackTrace();
+        }catch(IndexOutOfBoundsException index){
+            
         }
         
             

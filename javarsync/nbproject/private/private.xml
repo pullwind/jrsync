@@ -8,7 +8,9 @@
             <file>file:/D:/github/jrsync/javarsync/src/jrsync/RFile.java</file>
             <file>file:/D:/github/jrsync/javarsync/src/jrsync/HostWorkRestore.java</file>
             <file>file:/D:/github/jrsync/javarsync/src/jrsync/HostWorkPeriod.java</file>
+            <file>file:/D:/github/jrsync/javarsync/src/jrsync/AddHostWork.java</file>
             <file>file:/D:/github/jrsync/javarsync/src/jrsync/Host.java</file>
+            <file>file:/D:/github/jrsync/javarsync/src/jrsync/MyRunnable.java</file>
             <file>file:/D:/github/jrsync/javarsync/src/jrsync/StreamDrainer.java</file>
             <file>file:/D:/github/jrsync/javarsync/src/jrsync/MJFrame.java</file>
         </group>

@@ -99,6 +99,7 @@ public class MJFrame extends javax.swing.JFrame {
         jTextAreaHost = new javax.swing.JTextArea();
         jButtonStart = new javax.swing.JButton();
         jButtonStop = new javax.swing.JButton();
+        SoftWareRegister = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
@@ -112,7 +113,7 @@ public class MJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Host", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("宋体", 0, 15), new java.awt.Color(0, 51, 204))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Host", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("宋体", 0, 15), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jListHost.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -168,7 +169,7 @@ public class MJFrame extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane5)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
@@ -216,6 +217,8 @@ public class MJFrame extends javax.swing.JFrame {
                 .addGap(0, 2, Short.MAX_VALUE))
         );
 
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "HostDetail", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("宋体", 0, 15), new java.awt.Color(0, 51, 255))); // NOI18N
+
         jTextAreaHost.setColumns(20);
         jTextAreaHost.setRows(5);
         jTextAreaHost.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -239,6 +242,13 @@ public class MJFrame extends javax.swing.JFrame {
             }
         });
 
+        SoftWareRegister.setText("Software Register");
+        SoftWareRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SoftWareRegisterActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -246,24 +256,24 @@ public class MJFrame extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(jButtonStart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jButtonStart)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonStop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(359, 359, 359))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonStop, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
+                        .addComponent(SoftWareRegister)))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonStop)
-                    .addComponent(jButtonStart)))
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 43, Short.MAX_VALUE))
+                .addComponent(jScrollPane2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonStart)
+                    .addComponent(jButtonStop)
+                    .addComponent(SoftWareRegister)))
         );
 
         jMenu1.setText("File");
@@ -325,17 +335,14 @@ public class MJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -347,31 +354,6 @@ public class MJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     
-    private void jButtonStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStopActionPerformed
-         
-        //mytablemodel.getSelectHost(jTable1.getSelectedRow()).getHostProcess().destroyForcibly();
-        // ((HostWork)jListHost.getSelectedValue()).getTimer().cancel();
-                
-       // ArrayList<Process> processList =((HostWork)jListHost.getSelectedValue()).getHost().getProcessList();
-        ((HostWork)jListHost.getSelectedValue()).ScheduledFutureCacel();
-        ((HostWork)jListHost.getSelectedValue()).setScheduledThreadPoolExecutor(10);
-       // ArrayList<ScheduledFuture<?>> scheduledfutureList = new ArrayList<ScheduledFuture<?>>();
-         //   hostwork.setScheduledFutureList(scheduledfutureList); 
-       // ((HostWork)jListHost.getSelectedValue()).setScheduledFutureList(scheduledfutureList);
-       
-        /*
-        for(int i=0; i< processList.size(); i++){
-           // process.destroyForcibly();
-            processList.get(i).destroyForcibly();
-           // cmdLog.append("停止进程" + process.toString());
-            cmdLog.append("停止进程:   " + processList.get(i).toString());
-        }
-        */
-        //cmdLog.append("停止进程" + process.toString()); // mytablemodel.getSelectHost(jTable1.getSelectedRow()).getHostProcess().toString() + "\n");
-                
-                    
-    }//GEN-LAST:event_jButtonStopActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         HostWork hostwork = new HostWork();
         AddHostWork addhost = new AddHostWork(this.dlmhostworks, hostwork);
@@ -571,53 +553,79 @@ public class MJFrame extends javax.swing.JFrame {
         */
     }//GEN-LAST:event_jListHostMouseClicked
 
+    private void jButtonStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStopActionPerformed
+
+        //mytablemodel.getSelectHost(jTable1.getSelectedRow()).getHostProcess().destroyForcibly();
+        // ((HostWork)jListHost.getSelectedValue()).getTimer().cancel();
+
+        // ArrayList<Process> processList =((HostWork)jListHost.getSelectedValue()).getHost().getProcessList();
+        ((HostWork)jListHost.getSelectedValue()).ScheduledFutureCacel();
+        ((HostWork)jListHost.getSelectedValue()).setScheduledThreadPoolExecutor(10);
+        // ArrayList<ScheduledFuture<?>> scheduledfutureList = new ArrayList<ScheduledFuture<?>>();
+        //   hostwork.setScheduledFutureList(scheduledfutureList);
+        // ((HostWork)jListHost.getSelectedValue()).setScheduledFutureList(scheduledfutureList);
+
+        /*
+        for(int i=0; i< processList.size(); i++){
+            // process.destroyForcibly();
+            processList.get(i).destroyForcibly();
+            // cmdLog.append("停止进程" + process.toString());
+            cmdLog.append("停止进程:   " + processList.get(i).toString());
+        }
+        */
+        //cmdLog.append("停止进程" + process.toString()); // mytablemodel.getSelectHost(jTable1.getSelectedRow()).getHostProcess().toString() + "\n");
+    }//GEN-LAST:event_jButtonStopActionPerformed
+
     private void jButtonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartActionPerformed
         // TODO add your handling code here:
-       // Calendar cStart = Calendar.getInstance();    
-       //Calendar cEnd;               
+        // Calendar cStart = Calendar.getInstance();
+        //Calendar cEnd;
         //cmdLog.append("开始时间：" + cStart.getTime().toString() + "\n");
         //cmdLog.validate();
-        
-      try {  
-          // host
-         // if(//jList1.getSelectedIndex() == -1){
-         if( false){
-              cmdLog.append("请选择列表中的一行以进行备份 \n");
-             
-          }
-          else{
-              
-               int row = jListHost.getSelectedIndex(); //.getSelectedRow();             
-               HostWork nowhostwork = dlmhostworks.get(row); // .get(row); // .getSelectHost(row);
-               
-               
-           // cmdLog.append(nowhostwork.toString() + "\n");
-            //cmdLog.append("设置period参数......\n");
-           //nowhostwork.hostRsync();
-            
-            //set delay and period
-            HostWorkPeriod hwp = new HostWorkPeriod(nowhostwork);
-            hwp.setVisible(rootPaneCheckingEnabled);
-            
-           // this.wait();
-           //cmdLog.append("已设置period参数， 开始调用线程......\n");
-           // nowhostwork.hostRsyncTimer();
-            
-          }
-        
-      
-        } catch (Exception e) {
-            rsyncLog.append(e.toString());
-        }
-                    
-                    
-          // run thread
+
+        try {
+            // host
+            // if(//jList1.getSelectedIndex() == -1){
+                if( false){
+                    cmdLog.append("请选择列表中的一行以进行备份 \n");
+
+                }
+                else{
+
+                    int row = jListHost.getSelectedIndex(); //.getSelectedRow();
+                    HostWork nowhostwork = dlmhostworks.get(row); // .get(row); // .getSelectHost(row);
+
+                    // cmdLog.append(nowhostwork.toString() + "\n");
+                    //cmdLog.append("设置period参数......\n");
+                    //nowhostwork.hostRsync();
+
+                    //set delay and period
+                    HostWorkPeriod hwp = new HostWorkPeriod(nowhostwork);
+                    hwp.setVisible(rootPaneCheckingEnabled);
+
+                    // this.wait();
+                    //cmdLog.append("已设置period参数， 开始调用线程......\n");
+                    // nowhostwork.hostRsyncTimer();
+
+                }
+
+            } catch (Exception e) {
+                rsyncLog.append(e.toString());
+            }
+
+            // run thread
     }//GEN-LAST:event_jButtonStartActionPerformed
 
     private void jTextAreaHostMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextAreaHostMouseClicked
         // TODO add your handling code here:
-       
     }//GEN-LAST:event_jTextAreaHostMouseClicked
+
+    private void SoftWareRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SoftWareRegisterActionPerformed
+        // TODO add your handling code here:
+        Register register = new Register();
+        register.setVisible(rootPaneCheckingEnabled);
+        
+    }//GEN-LAST:event_SoftWareRegisterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -702,6 +710,7 @@ public class MJFrame extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Save;
+    private javax.swing.JButton SoftWareRegister;
     private javax.swing.JMenuItem Stoprestore;
     private javax.swing.JTextArea cmdLog;
     private javax.swing.JButton jButton1;

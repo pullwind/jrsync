@@ -112,8 +112,13 @@ public class MJFrame extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Host", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("宋体", 0, 15), new java.awt.Color(0, 0, 255))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Host", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("宋体", 0, 12), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jListHost.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -179,7 +184,7 @@ public class MJFrame extends javax.swing.JFrame {
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {Save, jButton1, jButton2});
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "RsyncLog", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("宋体", 0, 15), new java.awt.Color(0, 51, 153))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "RsyncLog", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("宋体", 0, 12), new java.awt.Color(0, 51, 153))); // NOI18N
 
         rsyncLog.setEditable(false);
         rsyncLog.setColumns(20);
@@ -197,7 +202,7 @@ public class MJFrame extends javax.swing.JFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "cmdLog    check the terminal window。", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("宋体", 0, 15), new java.awt.Color(0, 51, 153))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "cmdLog    check the terminal window。", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("宋体", 0, 12), new java.awt.Color(0, 51, 153))); // NOI18N
 
         cmdLog.setEditable(false);
         cmdLog.setColumns(20);
@@ -217,7 +222,7 @@ public class MJFrame extends javax.swing.JFrame {
                 .addGap(0, 2, Short.MAX_VALUE))
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "HostDetail", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("宋体", 0, 15), new java.awt.Color(0, 51, 255))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "HostDetail", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("宋体", 0, 12), new java.awt.Color(0, 51, 255))); // NOI18N
 
         jTextAreaHost.setColumns(20);
         jTextAreaHost.setRows(5);
@@ -626,6 +631,18 @@ public class MJFrame extends javax.swing.JFrame {
         register.setVisible(rootPaneCheckingEnabled);
         
     }//GEN-LAST:event_SoftWareRegisterActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        System.out.println("Exit");
+         for(int i=0; i< this.dlmhostworks.size(); i++){
+            this.dlmhostworks.get(i).ScheduledFutureCacel();
+        }
+        
+       // JOptionPane.showConfirmDialog(this, "Stopping task and Exit?","Exit", 0 );
+       // System.exit(0);
+        
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

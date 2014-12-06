@@ -6,8 +6,10 @@ gui rsync ,
 使用方法， 下载jar目录下的文件，
 安装和运行参考help.txt/user guide。
 
-1. 需要jre运行环境。
+1. 需要sun java jre运行环境。
 2. 需要配置 ssh无密码登入。
+
+提供远程技术支持，安装jre,samba,vnc等等。
  
 welcome to feed back to 910151595@qq.com
 
@@ -26,4 +28,4 @@ Installation and setup please refer the help.txt file.
 
 
 QQ: 910151595
-Email: 910151595@qq.com
+welcome to feed back to email: 910151595@qq.com

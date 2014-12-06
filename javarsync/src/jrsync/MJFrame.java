@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -63,6 +64,9 @@ public class MJFrame extends javax.swing.JFrame {
         
         jListHost.setModel(dlmhostworks); //set model
         //
+       // for(int i=0; i< this.dlmhostworks.size(); i++){
+       //     this.dlmhostworks.get(i).ScheduledFutureCacel();
+        //}
         
  
     }
@@ -427,7 +431,7 @@ public class MJFrame extends javax.swing.JFrame {
         for(int i=0; i< this.dlmhostworks.size(); i++){
             this.dlmhostworks.get(i).ScheduledFutureCacel();
         }
-       
+        
         System.exit(0);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
@@ -505,20 +509,35 @@ public class MJFrame extends javax.swing.JFrame {
         try{
             jTextAreaHost.append("\n now ScheduleFuture :  " + hostwork.getScheduledFutureList().size() );
         }catch (NullPointerException e2) {
-              ArrayList<ScheduledFuture<?>> scheduledfutureList = new ArrayList<ScheduledFuture<?>>();
+              ArrayList<ScheduledFuture<String>> scheduledfutureList = new ArrayList<ScheduledFuture<String>>();
             hostwork.setScheduledFutureList(scheduledfutureList); 
            //e2.printStackTrace();             
         }
+        
+        //hostwork.getScheduledThreadPoolExecutor().getQueue().
+       
          
         try{
             String taskcount = String.valueOf(hostwork.getScheduledThreadPoolExecutor().getTaskCount());
           jTextAreaHost.append("\n  All Taskcount : " +taskcount);
             String activetask = String.valueOf( hostwork.getScheduledThreadPoolExecutor().getActiveCount());
             jTextAreaHost.append("\n Now Active task: " + activetask);
+            
+            
+            for(int i=0; i< hostwork.getScheduledFutureList().size(); i++){
+                String a=   String.valueOf(hostwork.getScheduledFutureList().get(i).isDone());
+                //String b=   String.valueOf(hostwork.getScheduledFutureList().get(i).isCancelled());
+               // String result =hostwork.getScheduledFutureList().get(i).get();
+                jTextAreaHost.append("\n scheduledfuture isdone " + String.valueOf(i) + " : " + a);
+               // jTextAreaHost.append("\n scheduledfuture caceled " + String.valueOf(i) + " : " + b);
+                
+            }
+            
           } catch (NullPointerException e3) {
             hostwork.setScheduledThreadPoolExecutor(10); 
            //e3.printStackTrace();             
         }
+        
         try{
         jTextAreaHost.append("\n now runing process : " + processlist.size());
         }catch (NullPointerException e1) {           

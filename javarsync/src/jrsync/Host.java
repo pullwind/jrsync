@@ -17,8 +17,8 @@ import java.util.Date;
  * @author Administrator
  */
 public class Host implements Serializable{
-    private  ArrayList<String> backupCmdList = new ArrayList<String>();
-    private ArrayList<String> recoverCmdList = new ArrayList<String>();
+    private  ArrayList<String> backupCmdList; // = new ArrayList<String>();
+    private ArrayList<String> recoverCmdList; // = new ArrayList<String>();
     
     private String rhostUser;
     private String rhostName;
@@ -31,11 +31,18 @@ public class Host implements Serializable{
     private String backupCmdString;
     private String recoverCmdString;   
     
-   private transient ArrayList<Process> processList = new ArrayList<Process>();
+   private transient ArrayList<Process> processList; // = new ArrayList<Process>();
    
    private static final long serialVersionUID=-1 ;
    private Date lasttime;
+
+    public Host() {
+       processList = new ArrayList<Process>(); 
+       backupCmdList = new ArrayList<String>();
+       recoverCmdList = new ArrayList<String>();
+    }
     
+   
    public Date getLastTime(){
        
         return this.lasttime;

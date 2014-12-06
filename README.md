@@ -24,3 +24,6 @@ Installation and setup please refer the help.txt file.
 
 2. Need to configure SSH passwordless login.
 
+
+QQ: 910151595
+Email: 910151595@qq.com

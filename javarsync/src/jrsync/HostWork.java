@@ -22,7 +22,7 @@ import javax.swing.JTextArea;
  * @author Administrator
  */
 public class HostWork implements Serializable{
-        private Host host = new Host();   
+        private Host host; // = new Host();   
         private long timerperiod;
         private long timerdelay;
         
@@ -34,6 +34,7 @@ public class HostWork implements Serializable{
      
     public HostWork() {
        // lasttime = this.getLastTime();
+         host = new Host();  
         scheduledfutureList = new ArrayList<ScheduledFuture<String>>();
         scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(10);
         scheduledfuture = null;

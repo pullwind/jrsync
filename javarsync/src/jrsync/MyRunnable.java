@@ -40,9 +40,14 @@ public class MyRunnable implements Runnable{
              for(int i=0; i< this.cmdlist.size(); i++){
                  s+= ( this.cmdlist.get(i) + " ");
              }
-             System.out.println("Begin time :" +Calendar.getInstance().getTime().toString());
+             
+             String begintime = "Begin time :" +Calendar.getInstance().getTime().toString();
+             System.out.println(begintime);
+             this.host.backupLog.add(begintime);
              
              System.out.println("Create PorcessBuilder from : " + s );
+             this.host.backupLog.add("Create PorcessBuilder from : " + s);
+             
              //之前用的
           // pb.redirectError(Redirect.INHERIT);
           // pb.redirectInput(Redirect.INHERIT);
@@ -77,8 +82,12 @@ public class MyRunnable implements Runnable{
             String useTime =HostWork.caculateTime(tStart);
                    
             host.setLastTime(); //update lasttime of rsync
-            System.out.println("finish time :" +Calendar.getInstance().getTime().toString());
+            String endtime = "finish time :" +Calendar.getInstance().getTime().toString();
+            System.out.println(endtime);
+            this.host.backupLog.add(endtime);
              System.out.println("Task done :" + useTime);    
+             this.host.backupLog.add("Task done :" + useTime);
+             
           // System.out.println("Lastcomplete time of rsync: " + host.getLastTime().toString());
            // p.
           // assert pb.redirectInput() == Redirect.PIPE;

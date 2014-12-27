@@ -19,6 +19,8 @@ import java.util.Date;
 public class Host implements Serializable{
     private  ArrayList<String> backupCmdList; // = new ArrayList<String>();
     private ArrayList<String> recoverCmdList; // = new ArrayList<String>();
+    public ArrayList<String> backupLog; // bakcup log
+    
     
     private String rhostUser;
     private String rhostName;
@@ -40,6 +42,7 @@ public class Host implements Serializable{
        processList = new ArrayList<Process>(); 
        backupCmdList = new ArrayList<String>();
        recoverCmdList = new ArrayList<String>();
+       backupLog = new ArrayList<String>();
     }
     
     public void setupHost(){

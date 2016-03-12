@@ -1,19 +1,15 @@
 jrsync
 ======
 gui rsync ,
-»ùÓÚJAVAµÄGUI½çÃæ£¬µ÷ÓÃrsyncÃüÁî¡£
+åŸºäºJAVAçš„GUIç•Œé¢ï¼Œè°ƒç”¨rsyncå‘½ä»¤ã€‚
 
-Ê¹ÓÃ·½·¨£¬ ÏÂÔØjarÄ¿Â¼ÏÂµÄÎÄ¼ş£¬
-°²×°ºÍÔËĞĞ²Î¿¼help.txt/user guide¡£
+ä½¿ç”¨æ–¹æ³•ï¼Œ ä¸‹è½½jarç›®å½•ä¸‹çš„æ–‡ä»¶ï¼Œ
+å®‰è£…å’Œè¿è¡Œå‚è€ƒhelp.txt/user guideã€‚
 
-1. ĞèÒªsun java jreÔËĞĞ»·¾³¡£
-2. ĞèÒªÅäÖÃ sshÎŞÃÜÂëµÇÈë¡£
+1. éœ€è¦sun java jreè¿è¡Œç¯å¢ƒã€‚
+2. éœ€è¦é…ç½® sshæ— å¯†ç ç™»å…¥ã€‚
 
-Ìá¹©Ô¶³Ì¼¼ÊõÖ§³Ö£¬°²×°jre,samba,vncµÈµÈ¡£
- 
-welcome to feed back to 910151595@qq.com
 
- 
 JAVA-based GUI interface, invoke rsync command.
 
 
@@ -26,6 +22,3 @@ Installation and setup please refer the help.txt file.
 
 2. Need to configure SSH passwordless login.
 
-
-QQ: 910151595
-welcome to feed back to email: 910151595@qq.com
